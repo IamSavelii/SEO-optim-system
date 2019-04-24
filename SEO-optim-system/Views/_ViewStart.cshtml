@@ -1,0 +1,5 @@
+﻿@{
+    Layout = "_Layout";
+    ViewBag.ControllerName = ViewContext.RouteData.Values["controller"]?.ToString().ToLower();
+    ViewBag.ActionName = ViewContext.RouteData.Values["action"]?.ToString().ToLower();
+}
