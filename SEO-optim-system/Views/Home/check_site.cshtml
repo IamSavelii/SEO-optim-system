@@ -8,12 +8,27 @@
     </div>
 </div>
 <p>На данной странице вы можете выполнить SEO-анализ сайта</p>
-<form action="check_site.php" method="POST">
+<p>@ViewBag.SOSU</p>
+@*<form asp-controller="Home" asp-action="Check_site" method="get">*@
     <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" name="url" id="url">
         <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Выполнить</button>
+            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"onclick="getSGI()">Выполнить</button>
         </div>
+            <div class="col-md-12">
+                <div class="result"></div>
+            </div>
     </div>
-</form>
+@*</form>*@
 
+<script>
+    function getSGI() {
+        $.ajax({
+            url: '@Url.Action("YandexSQI","Home")?url='+$("#url").val(),
+            type: "get",
+            success: function (result) {
+                $(".result").append("SGI:" + result)
+            }
+        })
+    }
+</script>
