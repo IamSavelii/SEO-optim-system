@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AngleSharp;
+using AngleSharp.Network.Default;
 using Microsoft.AspNetCore.Mvc;
 using SEO_optim_system.Models;
-using AngleSharp;
-using AngleSharp.Dom;
-using AngleSharp.Network.Default;
-using System.IO;
-using System.Net.Http;
-using HttpMethod = AngleSharp.Network.HttpMethod;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace SEO_optim_system.Controllers
 {
@@ -35,7 +29,7 @@ namespace SEO_optim_system.Controllers
         {
             return View();
         }
-        
+
         public IActionResult Data()
         {
             return View();
@@ -49,11 +43,13 @@ namespace SEO_optim_system.Controllers
             return View();
         }
 
-        public JsonResult GetSpam() {
+        public JsonResult GetSpam()
+        {
             return Json(DateTime.Now);
         }
 
-        public async Task<JsonResult> GetParametrs(string url) {
+        public async Task<JsonResult> GetParametrs(string url)
+        {
             return Json(new
             {
                 site = url,
@@ -78,7 +74,8 @@ namespace SEO_optim_system.Controllers
             return await Delete(result);
         }
 
-        public async Task<string> Delete(string text){
+        public async Task<string> Delete(string text)
+        {
             return String.Join("", text.Split('.')).Trim();
         }
 
@@ -107,7 +104,7 @@ namespace SEO_optim_system.Controllers
             var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
             var document = await context.OpenAsync(adress);
             var result = document.QuerySelector("#set_description").TextContent;
-            
+
             return await Delete(result);
         }
 
