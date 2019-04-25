@@ -57,7 +57,7 @@ namespace SEO_optim_system.Controllers
             {
                 site = url,
                 pageTitle = await GetTitle(url),
-                pageDecription = await GetDescription(url),
+                pageDescription = await GetDescription(url),
                 SQI = await YandexSQI(url),
                 pageSpeedDesktop = await GetPageSpeedDesktop(url),
                 trast = trstspm[0],
