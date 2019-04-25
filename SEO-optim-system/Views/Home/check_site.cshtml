@@ -11,26 +11,41 @@
     </div>
 </div>
 <p>На данной странице вы можете выполнить SEO-анализ сайта</p>
-<p>@ViewBag.SOSU</p>
-@*<form asp-controller="Home" asp-action="Check_site" method="get">*@
 <div class="input-group mb-3">
     <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" name="url" id="url">
     <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="getSGI()">Выполнить</button>
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="getInfo()">Выполнить</button>
     </div>
     <div class="col-md-12">
-        <div class="result"></div>
+        <div class="result p-5"></div>
     </div>
 </div>
-@*</form>*@
 
-<script>
-    function getSGI() {
+<script type='text/javascript'>
+    function getInfo() {
         $.ajax({
-            url: '@Url.Action("YandexSQI","Home")?url='+$("#url").val(),
+            url: '@Url.Action("GetParametrs","Home")?url='+$("#url").val(),
             type: "get",
-            success: function (result) {
-                $(".result").append("SGI:" + result)
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $(".result").empty();
+                $(".result").append('<b>Проверен сайт:</b> <a href="https://' + data.site + '" > ' + data.site + '</a>');
+                $(".result").append('<br>');
+                $(".result").append('<b>Дата проверки: </b>' + Date());
+                $(".result").append('<br>');
+                $(".result").append('<b>Title: </b>' + data.pageTitle);
+                $(".result").append('<br>');
+                $(".result").append('<b>Description: </b>' + data.pageDecription);
+                $(".result").append('<br>');
+                $(".result").append('<b>Скорость работы страницы: </b>' + data.pageSpeedDesktop);
+                $(".result").append('<br>');
+                $(".result").append('<b>ИКС: </b>' + data.sqi);
+                $(".result").append('<br>');
+                $(".result").append('<b>Траст: </b>' + data.trast);
+                $(".result").append('<br>');
+                $(".result").append('<b>СПАМ: </b>' + data.spam);
+                $(".result").append('<br>'); 
             }
         })
     }
