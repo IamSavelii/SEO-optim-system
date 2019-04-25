@@ -1,4 +1,7 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Проверка сайта";
+    ViewData["Description"] = "SEO-анализ сайта по URL";
+}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Проверка сайта</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -10,15 +13,15 @@
 <p>На данной странице вы можете выполнить SEO-анализ сайта</p>
 <p>@ViewBag.SOSU</p>
 @*<form asp-controller="Home" asp-action="Check_site" method="get">*@
-    <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" name="url" id="url">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2"onclick="getSGI()">Выполнить</button>
-        </div>
-            <div class="col-md-12">
-                <div class="result"></div>
-            </div>
+<div class="input-group mb-3">
+    <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" name="url" id="url">
+    <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="getSGI()">Выполнить</button>
     </div>
+    <div class="col-md-12">
+        <div class="result"></div>
+    </div>
+</div>
 @*</form>*@
 
 <script>
