@@ -2,7 +2,7 @@
     ViewData["Title"] = "Проверка сайта";
     ViewData["Description"] = "SEO-анализ сайта по URL";
 }
-<img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" />
+
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Проверка сайта</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
@@ -18,8 +18,11 @@
         <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="getInfo()">Выполнить</button>
     </div>
     <div class="col-md-12">
+        <div class="text-center">
+            <img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" class="p-3"/>
+        </div>
         <div class="result p-3"></div>
-        <div class="accordion" id="accordionExample">
+        <div class="accordion" id="accordion">
             <div class="card">
                 <div class="card-header" id="headingOne">
                     <h2 class="mb-0">
@@ -29,7 +32,7 @@
                     </h2>
                 </div>
 
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                         <b>Title</b> сообщает поисковой системе, каким оптимизатор хотел бы видеть заголовок страницы сайта в выдаче. Роботы придают большее значение содержанию обычного тега title.
                         <br>
@@ -45,7 +48,7 @@
                         </button>
                     </h2>
                 </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
                     <div class="card-body">
                         <b>Description</b> предназначен для создания краткого описания html-страницы. Его содержимое может использоваться поисковыми системами для формирования сниппета.
                         <br>
@@ -61,7 +64,7 @@
                         </button>
                     </h2>
                 </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
                     <div class="card-body">
                         <b>Индекс качества сайта</b> — это показатель того, насколько полезен ваш сайт для пользователей с точки зрения Яндекса.
                         При расчете индекса качества учитываются размер аудитории сайта, степень удовлетворенности пользователей, уровень доверия к сайту со стороны пользователей и Яндекса, а также другие критерии.
@@ -76,7 +79,7 @@
                         </button>
                     </h2>
                 </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
                     <div class="card-body">
                         <b>Траст сайта</b> - это своеобразная мера доверия к сайту со стороны поисковых систем, которая значительно влияет на позиции сайта в результатах поиска.
                         <br><br>
@@ -105,7 +108,7 @@
                         </button>
                     </h2>
                 </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
+                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
                     <div class="card-body">
                         <b>Ссылочный спам</b> - это чрезмерное количество внешних ссылок, размещаемых на сайтах-донорах с целью повышения эффективности продвижения и ускорения выхода продвигаемого ресурса в ТОП поисковой выдачи.
                         <br>
@@ -130,7 +133,6 @@
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </div>
@@ -152,8 +154,6 @@
                 $(".result").append('<b>Title: </b>' + data.pageTitle + " <b>Длина</b> - " + data.pageTitle.length);
                 $(".result").append('<br>');
                 $(".result").append('<b>Description: </b>' + data.pageDescription  + " <b>Длина</b> - " + data.pageDescription.length);
-                $(".result").append('<br>');
-                $(".result").append('<b>Скорость загрузки страницы: </b>' + data.pageSpeedDesktop);
                 $(".result").append('<br>');
                 $(".result").append('<b>ИКС: </b>' + data.sqi);
                 $(".result").append('<br>');

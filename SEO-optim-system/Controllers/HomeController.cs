@@ -59,7 +59,6 @@ namespace SEO_optim_system.Controllers
                 pageTitle = await GetTitle(url),
                 pageDescription = await GetDescription(url),
                 SQI = await YandexSQI(url),
-                pageSpeedDesktop = await GetPageSpeedDesktop(url),
                 trast = trstspm[0],
                 spam = trstspm[1]
             });
@@ -109,21 +108,6 @@ namespace SEO_optim_system.Controllers
             var document = await context.OpenAsync(adress);
             var result = document.QuerySelector("#set_description").TextContent;
 
-            return await Delete(result);
-        }
-
-        public async Task<string> GetPageSpeedDesktop(string url)
-        {
-            var adress = "http://profilink1.ru/seo/ru/www/" + url;
-            var requester = new HttpRequester(adress);
-            requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
-            requester.Headers["Accept-Charset"] = "utf-8";
-            requester.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
-            var configuration = Configuration.Default.WithDefaultLoader(requesters: new[] { requester });
-            var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
-            var document = await context.OpenAsync(adress);
-            System.Threading.Thread.Sleep(4000);
-            var result = document.QuerySelector("#pagespeed_desktop > div > div.span7 > span.label.score-label.label-warning").TextContent;
             return await Delete(result);
         }
 

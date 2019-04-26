@@ -9,4 +9,136 @@
 
 <div class="container">
 
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="Contract-tab" data-toggle="tab" href="#Contract" role="tab" aria-controls="Contract" aria-selected="true">Договора</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="ListOfCompany-tab" data-toggle="tab" href="#ListOfCompany" role="tab" aria-controls="ListOfCompany" aria-selected="false">Список компаний</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="ListOfEmployee-tab" data-toggle="tab" href="#ListOfEmployee" role="tab" aria-controls="ListOfEmployee" aria-selected="false">Список рабочих</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="Contract" role="tabpanel" aria-labelledby="Contract-tab">
+            <div class="form-group pt-3">
+                <label for="InputProjectName">Название проекта</label>
+                <input type="text" class="form-control" id="InputProjectName" placeholder="Название проекта">
+            </div>
+            <div class="form-group">
+                <label for="InputProjectDate">Дата заключения договора</label>
+                <input type="date" class="form-control" id="InputProjectDate" placeholder="Дата">
+            </div>
+            <div class="form-group">
+                <label for="InputProjectSite">Сайт для продвижения</label>
+                <input type="text" class="form-control" id="InputProjectSite" placeholder="Сайт">
+            </div>
+            <div class="form-group">
+                <label for="CompanySelect">Выберите компанию</label>
+                <select class="form-control" id="CompanySelect">
+                    <option>1</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="EmployeeSelect">Выберите рабочего</label>
+                <select class="form-control" id="EmployeeSelect">
+                    <option>1</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="Textarea">Ключевые слова</label>
+                <textarea class="form-control" id="Textarea" placeholder="Слова вводить через запятую"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="InputGooglePoz">Позиция в Google</label>
+                <input type="text" class="form-control" id="InputGooglePoz" placeholder="Позиция в Google">
+            </div>
+            <div class="form-group">
+                <label for="InputYandexPoz">Позиция в Yandex</label>
+                <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex">
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="OptimizImg">
+                <label class="form-check-label" for="OptimizImg">Оптимизация изображений</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="OptimizText">
+                <label class="form-check-label" for="OptimizText">Оптимизация текста</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="OptimizTag">
+                <label class="form-check-label" for="OptimizTag">Оптимизация тэгов</label>
+            </div>
+            <br>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="AddContract">Добавить договор</button>
+            <br>
+        </div>
+        <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
+            <div class="form-group pt-3">
+                <label for="InputCompanyName">Название компании</label>
+                <input type="text" class="form-control" id="InputCompanyName" placeholder="Название компании">
+            </div>
+            <div class="form-group">
+                <label for="InputCompanyCountry">Страна</label>
+                <input type="text" class="form-control" id="InputCompanyCountry" placeholder="Страна">
+            </div>
+            <div class="form-group">
+                <label for="InputCompanyCity">Город</label>
+                <input type="text" class="form-control" id="InputCompanyCity" placeholder="Город">
+            </div>
+            <div class="form-group">
+                <label for="InputCompanyDirector">ФИО директора или ответственного лица</label>
+                <input type="text" class="form-control" id="InputCompanyDirector" placeholder="ФИО директора или ответственного лица">
+            </div>
+            <div class="form-group">
+                <label for="InputCompanyPhone">Номер телефона</label>
+                <input type="text" class="form-control" id="InputCompanyPhone" placeholder="Номер телефона">
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="AddCompany">Добавить компанию</button>
+            <br>
+        </div>
+        <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
+            <div class="form-group pt-3">
+                <label for="InputEmployeeFirstName">Имя рабочего</label>
+                <input type="text" class="form-control" id="InputEmployeeFirstName" placeholder="Имя">
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeePatronymic">Отчество рабочего</label>
+                <input type="text" class="form-control" id="InputEmployeePatronymic" placeholder="Отчество">
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeeSecondName">Фамилия рабочего</label>
+                <input type="text" class="form-control" id="InputEmployeeSecondName" placeholder="Фамилия">
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeeBirthday">Дата рождения</label>
+                <input type="date" class="form-control" id="InputEmployeeBirthday" placeholder="Дата рождения">
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeePosition">Должность</label>
+                <input type="text" class="form-control" id="InputEmployeePosition" placeholder="Должность">
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeeDepartament">Отдел</label>
+                <select class="custom-select" id="InputEmployeeDepartament">
+                    <option selected>Выберите отдел</option>
+                    <option value="Администрация">Администрация</option>
+                    <option value="Бухгалтерия">Бухгалтерия</option>
+                    <option value="Разработка">Разработка</option>
+                    <option value="Отдел маркетинга">Отдел маркетинга</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeePhone">Номер телефона</label>
+                <input type="text" class="form-control" id="InputEmployeePhone" placeholder="Номер телефона">
+            </div>
+            <div class="form-group">
+                <label for="InputEmployeeExperience">Стаж</label>
+                <input type="text" class="form-control" id="InputEmployeeExperience" placeholder="Стаж">
+            </div>
+            <button type="button" class="btn btn-primary btn-lg btn-block" id="AddEmployee">Добавить рабочего</button>
+            <br>
+        </div>
+    </div> 
 </div>
