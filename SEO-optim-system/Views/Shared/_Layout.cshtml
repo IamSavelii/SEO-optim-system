@@ -5,10 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SEO ИС</title>
     <meta name="description" content="@ViewData["Description"]" />
+    @Html.Partial("_Favicons")
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/toastr/2.1.1/content/content/toastr.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -26,12 +28,12 @@
     <div class="container">
         <div class="row">
             <partial name="sidebar" />
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" >
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 @RenderBody()
             </main>
         </div>
-        
-        
+
+
     </div>
 
     @*<footer class="border-top footer text-muted">
@@ -43,6 +45,7 @@
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/toastr/2.1.1/content/scripts/toastr.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"

@@ -58,21 +58,54 @@
                 <label for="InputYandexPoz">Позиция в Yandex</label>
                 <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex">
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="OptimizImg">
-                <label class="form-check-label" for="OptimizImg">Оптимизация изображений</label>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="" id="OptimizImg">
+                <label class="custom-control-label" for="OptimizImg">Оптимизация изображений</label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="OptimizText">
-                <label class="form-check-label" for="OptimizText">Оптимизация текста</label>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="" id="OptimizText">
+                <label class="custom-control-label" for="OptimizText">Оптимизация текста</label>
             </div>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="OptimizTag">
-                <label class="form-check-label" for="OptimizTag">Оптимизация тэгов</label>
+            <div class="custom-control custom-checkbox">
+                <input class="custom-control-input" type="checkbox" value="" id="OptimizTag">
+                <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
             </div>
             <br>
             <button type="button" class="btn btn-primary btn-lg btn-block" id="AddContract">Добавить договор</button>
             <br>
+            <table class="table table-bordered text-center" style="font-size:12px;">
+                <tr style="background-color: rgba(156, 156, 156, 0.75); vertical-align:middle; text-align:center" class="align-middle">
+                    <th rowspan="2">Название</th>
+                    <th rowspan="2">Дата</th>
+                    <th rowspan="2">Cайт</th>
+                    <th rowspan="2">Компания</th>
+                    <th rowspan="2">Выполняет</th>
+                    <th rowspan="2">Google</th>
+                    <th rowspan="2">Yandex</th>
+                    <th colspan="3">Оптимизация</th>
+                    <th rowspan="2">Изменить</th>
+                    <th rowspan="2">Удалить</th>
+                </tr>
+                <tr style="background-color: rgba(156, 156, 156, 0.75)">
+                    <td><b>Изображения</b></td>
+                    <td><b>Текст</b></td>
+                    <td><b>Тэги</b></td>
+                </tr>
+                <tr>
+                    <td>Название проекта</td>
+                    <td>Дата</td>
+                    <td>Сайт</td>
+                    <td>Компания</td>
+                    <td>Выполняет</td>
+                    <td>Google</td>
+                    <td>Yandex</td>
+                    <td>Изображения</td>
+                    <td>Текст</td>
+                    <td>Тэги</td>
+                    <td><a href="#">Изменить</a></td>
+                    <td><a href="#">Удалить</a></td>
+                </tr>
+            </table>
         </div>
         <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
             <div class="form-group pt-3">
@@ -97,6 +130,26 @@
             </div>
             <button type="button" class="btn btn-primary btn-lg btn-block" id="AddCompany">Добавить компанию</button>
             <br>
+            <table class="table table-bordered text-center">
+                <tr style="background-color: rgba(156, 156, 156, 0.75)">
+                    <td>Название компании</td>
+                    <td>Страна</td>
+                    <td>Город</td>
+                    <td>ФИО</td>
+                    <td>Номер телефона</td>
+                    <td>Изменить</td>
+                    <td>Удалить</td>
+                </tr>
+                <tr>
+                    <td>Название компании</td>
+                    <td>Страна</td>
+                    <td>Город</td>
+                    <td>ФИО</td>
+                    <td>Номер телефона</td>
+                    <td><a href="#">Изменить</a></td>
+                    <td><a href="#">Удалить</a></td>
+                </tr>
+            </table>
         </div>
         <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
             <div class="form-group pt-3">
@@ -139,6 +192,28 @@
             </div>
             <button type="button" class="btn btn-primary btn-lg btn-block" id="AddEmployee">Добавить рабочего</button>
             <br>
+            <table class="table table-bordered text-center">
+                <tr style="background-color: rgba(156, 156, 156, 0.75)">
+                    <td>ФИО</td>
+                    <td>Дата рождения</td>
+                    <td>Должность</td>
+                    <td>Отдел</td>
+                    <td>Номер телефона</td>
+                    <td>Стаж</td>
+                    <td>Изменить</td>
+                    <td>Удалить</td>
+                </tr>
+                <tr>
+                    <td>ФИО</td>
+                    <td>Дата рождения</td>
+                    <td>Должность</td>
+                    <td>Отдел</td>
+                    <td>Номер телефона</td>
+                    <td>Стаж</td>
+                    <td><a href="#">Изменить</a></td>
+                    <td><a href="#">Удалить</a></td>
+                </tr>
+            </table>
         </div>
     </div> 
 </div>

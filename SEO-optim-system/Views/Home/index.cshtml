@@ -7,12 +7,25 @@
     <h1>Здравствуйте, привествуем Вас в Информационной системе</h1>
     <br>
     <br><br>
+    <div class="container font-weight-bold" id="result" style="font-size: 26px">
 
+    </div>
     <br>
-    <a id="time_is_link" rel="nofollow" style="font-size:36px">Новосибирск:</a>
-    <span id="Novosibirsk_z430" style="font-size:36px"></span>
-    <script src="//widget.time.is/ru.js"></script>
-    <script>
-        time_is_widget.init({ Novosibirsk_z430: { template: "TIME<br>DATE", time_format: "hours:minutes", date_format: "dayname daynum.monthnum.yy" } });
-    </script>
+    
 </div>
+
+<script>
+    var z = document.getElementById("result");
+    var date = new Date().toLocaleString("ru", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
+    });
+    var time = new Date().toLocaleString("ru", {
+                        hour: "numeric",
+                        minute: "numeric"
+    });
+    z.innerHTML = "Сейчас" + "<br>" + date + "<br>" + time;
+    setTimeout("location.reload()", 10000);
+</script>

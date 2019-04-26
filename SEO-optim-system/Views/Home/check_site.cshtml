@@ -6,8 +6,14 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
     <h1 class="h2">Проверка сайта</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
-        <div class="btn-group mr-2">
-            <button type="button" class="btn btn-sm btn-outline-secondary">Экспорт</button>
+        <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Экспорт
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a class="dropdown-item" href="#">Excel</a>
+                <a class="dropdown-item" href="#">HTML</a>
+            </div>
         </div>
     </div>
 </div>
@@ -19,7 +25,7 @@
     </div>
     <div class="col-md-12">
         <div class="text-center">
-            <img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" class="p-3"/>
+            <img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" class="p-3" />
         </div>
         <div class="result p-3"></div>
         <div class="accordion" id="accordion">
@@ -31,7 +37,6 @@
                         </button>
                     </h2>
                 </div>
-
                 <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
                     <div class="card-body">
                         <b>Title</b> сообщает поисковой системе, каким оптимизатор хотел бы видеть заголовок страницы сайта в выдаче. Роботы придают большее значение содержанию обычного тега title.
@@ -140,6 +145,34 @@
 <script type='text/javascript'>
     function getInfo() {
         $('#loadImg').show();
+        toastr["info"]("Начинается анализ сайта " + $("#url").val(), "Анализ сайта")
+
+        toastr.options = {
+          "closeButton": true,
+          "debug": false,
+          "newestOnTop": false,
+          "progressBar": false,
+          "positionClass": "toast-top-right",
+          "preventDuplicates": false,
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        }
+
+        var date = new Date().toLocaleString("ru", {
+                        weekday: "long",
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                        hour: "numeric",
+                        minute: "numeric"
+        });
         $.ajax({
             url: '@Url.Action("GetParametrs","Home")?url='+$("#url").val(),
             type: "get",
@@ -149,7 +182,7 @@
                 $(".result").empty();
                 $(".result").append('<b>Проверен сайт:</b> <a href="https://' + data.site + '" > ' + data.site + '</a>');
                 $(".result").append('<br>');
-                $(".result").append('<b>Дата проверки: </b>' + Date());
+                $(".result").append('<b>Дата проверки: </b>' + date);
                 $(".result").append('<br>');
                 $(".result").append('<b>Title: </b>' + data.pageTitle + " <b>Длина</b> - " + data.pageTitle.length);
                 $(".result").append('<br>');
@@ -160,8 +193,26 @@
                 $(".result").append('<b>Траст: </b>' + data.trast);
                 $(".result").append('<br>');
                 $(".result").append('<b>СПАМ: </b>' + data.spam);
-                $(".result").append('<br>'); 
+                $(".result").append('<br>');
                 $('#loadImg').hide();
+                toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта")
+                toastr.options = {
+                  "closeButton": false,
+                  "debug": false,
+                  "newestOnTop": false,
+                  "progressBar": false,
+                  "positionClass": "toast-top-right",
+                  "preventDuplicates": false,
+                  "onclick": null,
+                  "showDuration": "300",
+                  "hideDuration": "1000",
+                  "timeOut": "5000",
+                  "extendedTimeOut": "1000",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                }
             }
         })
     }
