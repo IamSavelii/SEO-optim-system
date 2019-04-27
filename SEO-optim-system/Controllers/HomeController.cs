@@ -60,7 +60,8 @@ namespace SEO_optim_system.Controllers
                 pageDescription = await GetDescription(url),
                 SQI = await YandexSQI(url),
                 trast = trstspm[0],
-                spam = trstspm[1]
+                spam = trstspm[1],
+                hostLimitsBalance = trstspm[2]
             });
 
         }
@@ -126,6 +127,8 @@ namespace SEO_optim_system.Controllers
             var result = JsonConvert.DeserializeObject<Rootobject>(json);
             trtspm.Add(result.summary.trust);
             trtspm.Add(result.summary.spam);
+            string balance = Convert.ToString(result.hostLimitsBalance);
+            trtspm.Add(balance);
             return trtspm;
         }
 

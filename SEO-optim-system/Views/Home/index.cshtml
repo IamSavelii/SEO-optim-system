@@ -11,21 +11,29 @@
 
     </div>
     <br>
-    
+
 </div>
 
 <script>
-    var z = document.getElementById("result");
-    var date = new Date().toLocaleString("ru", {
-                        weekday: "long",
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric"
-    });
-    var time = new Date().toLocaleString("ru", {
-                        hour: "numeric",
-                        minute: "numeric"
-    });
-    z.innerHTML = "Сейчас" + "<br>" + date + "<br>" + time;
-    setTimeout("location.reload()", 10000);
+    function datetime() {
+        var i = 1;
+        var timerId = setInterval(function () {
+            $(".result").empty();
+            var z = document.getElementById("result");
+            var date = new Date().toLocaleString("ru", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+            });
+            var time = new Date().toLocaleString("ru", {
+                hour: "numeric",
+                minute: "numeric",
+                second: "numeric"
+            });
+            z.innerHTML = "Сейчас" + "<br>" + date + "<br>" + time;
+        }, 1000);
+    }
+
+    datetime();
 </script>

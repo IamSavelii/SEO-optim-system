@@ -194,6 +194,7 @@
                 $(".result").append('<br>');
                 $(".result").append('<b>СПАМ: </b>' + data.spam);
                 $(".result").append('<br>');
+                console.log("Осталось проверок - " + data.hostLimitsBalance);
                 $('#loadImg').hide();
                 toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта")
                 toastr.options = {
