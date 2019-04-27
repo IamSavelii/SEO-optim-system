@@ -179,41 +179,66 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             success: function (data) {
-                $(".result").empty();
-                $(".result").append('<b>Проверен сайт:</b> <a href="https://' + data.site + '" > ' + data.site + '</a>');
-                $(".result").append('<br>');
-                $(".result").append('<b>Дата проверки: </b>' + date);
-                $(".result").append('<br>');
-                $(".result").append('<b>Title: </b>' + data.pageTitle + " <b>Длина</b> - " + data.pageTitle.length);
-                $(".result").append('<br>');
-                $(".result").append('<b>Description: </b>' + data.pageDescription  + " <b>Длина</b> - " + data.pageDescription.length);
-                $(".result").append('<br>');
-                $(".result").append('<b>ИКС: </b>' + data.sqi);
-                $(".result").append('<br>');
-                $(".result").append('<b>Траст: </b>' + data.trast);
-                $(".result").append('<br>');
-                $(".result").append('<b>СПАМ: </b>' + data.spam);
-                $(".result").append('<br>');
-                console.log("Осталось проверок - " + data.hostLimitsBalance);
-                $('#loadImg').hide();
-                toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта")
-                toastr.options = {
-                  "closeButton": false,
-                  "debug": false,
-                  "newestOnTop": false,
-                  "progressBar": false,
-                  "positionClass": "toast-top-right",
-                  "preventDuplicates": false,
-                  "onclick": null,
-                  "showDuration": "300",
-                  "hideDuration": "1000",
-                  "timeOut": "5000",
-                  "extendedTimeOut": "1000",
-                  "showEasing": "swing",
-                  "hideEasing": "linear",
-                  "showMethod": "fadeIn",
-                  "hideMethod": "fadeOut"
+                if (data.status == "True") {
+                    $(".result").empty();
+                    $(".result").append('<b>Проверен сайт:</b> <a href="https://' + data.site + '" > ' + data.site + '</a>');
+                    $(".result").append('<br>');
+                    $(".result").append('<b>Дата проверки: </b>' + date);
+                    $(".result").append('<br>');
+                    $(".result").append('<b>Title: </b>' + data.pageTitle + " <b>Длина</b> - " + data.pageTitle.length);
+                    $(".result").append('<br>');
+                    $(".result").append('<b>Description: </b>' + data.pageDescription + " <b>Длина</b> - " + data.pageDescription.length);
+                    $(".result").append('<br>');
+                    $(".result").append('<b>ИКС: </b>' + data.sqi);
+                    $(".result").append('<br>');
+                    $(".result").append('<b>Траст: </b>' + data.trast);
+                    $(".result").append('<br>');
+                    $(".result").append('<b>СПАМ: </b>' + data.spam);
+                    $(".result").append('<br>');
+                    console.log("Осталось проверок - " + data.hostLimitsBalance);
+                    toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта")
+                    toastr.options = {
+                        "closeButton": false,
+                        "debug": false,
+                        "newestOnTop": false,
+                        "progressBar": false,
+                        "positionClass": "toast-top-right",
+                        "preventDuplicates": false,
+                        "onclick": null,
+                        "showDuration": "300",
+                        "hideDuration": "1000",
+                        "timeOut": "5000",
+                        "extendedTimeOut": "1000",
+                        "showEasing": "swing",
+                        "hideEasing": "linear",
+                        "showMethod": "fadeIn",
+                        "hideMethod": "fadeOut"
+                    }
                 }
+                else {
+                    $(".result").empty();
+                    $(".result").append("<b>Ошибка: </b>" + data.message);
+                    toastr["error"]("Сайт " + $("#url").val() +" не существует", "Ошибка")
+
+                    toastr.options = {
+                      "closeButton": false,
+                      "debug": false,
+                      "newestOnTop": false,
+                      "progressBar": false,
+                      "positionClass": "toast-top-right",
+                      "preventDuplicates": false,
+                      "onclick": null,
+                      "showDuration": "300",
+                      "hideDuration": "1000",
+                      "timeOut": "5000",
+                      "extendedTimeOut": "1000",
+                      "showEasing": "swing",
+                      "hideEasing": "linear",
+                      "showMethod": "fadeIn",
+                      "hideMethod": "fadeOut"
+                    }
+                }
+                $('#loadImg').hide();
             }
         })
     }

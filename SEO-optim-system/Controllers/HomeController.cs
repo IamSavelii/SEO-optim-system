@@ -53,17 +53,28 @@ namespace SEO_optim_system.Controllers
         public async Task<JsonResult> GetParametrs(string url)
         {
             var trstspm = await GetSpamAndTrast(url);
-            return Json(new
+            if (trstspm[0] == "True")
             {
-                site = url,
-                pageTitle = await GetTitle(url),
-                pageDescription = await GetDescription(url),
-                SQI = await YandexSQI(url),
-                trast = trstspm[0],
-                spam = trstspm[1],
-                hostLimitsBalance = trstspm[2]
-            });
-
+                return Json(new
+                {
+                    status = trstspm[0],
+                    site = url,
+                    pageTitle = await GetTitle(url),
+                    pageDescription = await GetDescription(url),
+                    SQI = await YandexSQI(url),
+                    trast = trstspm[1],
+                    spam = trstspm[2],
+                    hostLimitsBalance = trstspm[3]
+                });
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = trstspm[0],
+                    message = "Неправильный URL"
+                });
+            }
         }
 
         public async Task<string> YandexSQI(string url)
@@ -125,10 +136,20 @@ namespace SEO_optim_system.Controllers
             var document = await context.OpenAsync(adress);
             var json = document.QuerySelector("html").TextContent;
             var result = JsonConvert.DeserializeObject<Rootobject>(json);
-            trtspm.Add(result.summary.trust);
-            trtspm.Add(result.summary.spam);
-            string balance = Convert.ToString(result.hostLimitsBalance);
-            trtspm.Add(balance);
+            if (result.success == true)
+            {
+                string res = Convert.ToString(result.success);
+                trtspm.Add(res); // [0]
+                trtspm.Add(result.summary.trust); // [1]
+                trtspm.Add(result.summary.spam); // [2]
+                string balance = Convert.ToString(result.hostLimitsBalance);
+                trtspm.Add(balance); //[3]
+            }
+            else
+            {
+                string res = Convert.ToString(result.success);
+                trtspm.Add(res);
+            }
             return trtspm;
         }
 
