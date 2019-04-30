@@ -15,6 +15,7 @@ namespace SEO_optim_system
         public static void Main(string[] args)
         {
 
+
             CreateWebHostBuilder(args).Build().Run();
         }
 

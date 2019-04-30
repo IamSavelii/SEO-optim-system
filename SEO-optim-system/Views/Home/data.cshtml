@@ -8,7 +8,6 @@
 </div>
 
 <div class="container">
-
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="Contract-tab" data-toggle="tab" href="#Contract" role="tab" aria-controls="Contract" aria-selected="true">Договора</a>
@@ -160,15 +159,19 @@
                     <td>Изменить</td>
                     <td>Удалить</td>
                 </tr>
-                <tr>
-                    <td>Название компании</td>
-                    <td>Страна</td>
-                    <td>Город</td>
-                    <td>ФИО</td>
-                    <td>Номер телефона</td>
-                    <td><a href="#">Изменить</a></td>
-                    <td><a href="#">Удалить</a></td>
-                </tr>
+
+                @foreach (var item in (List<Company>)ViewBag.Companies)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Country</td>
+                        <td>@item.City</td>
+                        <td>@item.LPR</td>
+                        <td>@item.PhoneNumber</td>
+                        <td><a href="#">Изменить</a></td>
+                        <td><button type="button" class="btn btn-secondary" onclick="DeleteCompany(@item.Id)">Удалить</button></td>
+                    </tr>
+                }
             </table>
         </div>
         <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
@@ -233,17 +236,101 @@
                     <td>Изменить</td>
                     <td>Удалить</td>
                 </tr>
-                <tr>
-                    <td>ФИО</td>
-                    <td>Дата рождения</td>
-                    <td>Должность</td>
-                    <td>Отдел</td>
-                    <td>Номер телефона</td>
-                    <td>Стаж</td>
-                    <td><a href="#">Изменить</a></td>
-                    <td><a href="#">Удалить</a></td>
-                </tr>
+                    @foreach (var item in (List<Employee>)ViewBag.Employees)
+                    {
+                        <tr>
+                            <td>@item.FirstName @item.Patronymic @item.SecondName</td>
+                            <td>@item.Birthday</td>
+                            <td>@item.Position</td>
+                            <td>@item.Department</td>
+                            <td>@item.PhoneNumber</td>
+                            <td>@item.Experience</td>
+                            <td><a href="#">Изменить</a></td>
+                            <td><button type="button" class="btn btn-secondary" onclick="DeleteEmployee(@item.Id)">Удалить</button></td>
+                        </tr>
+                    }
             </table>
         </div>
-    </div> 
+    </div>
 </div>
+
+<script>
+    $("#AddCompany").on("click", function (evt) {
+        var data = new FormData();
+        data.append("Name", $("#InputCompanyName").val());
+        data.append("Country", $("#InputCompanyCountry").val());
+        data.append("City", $("#InputCompanyCity").val());
+        data.append("LPR", $("#InputCompanyDirector").val());
+        data.append("PhoneNumber", $("#InputCompanyPhone").val());
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddCompany")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись добавлена в БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        });
+    });
+    
+    function DeleteCompany(id){
+        
+        $.ajax({
+            type: "Get",
+            url: "/home/DeleteCompany?Id=" + id,
+            success: function (data) {
+                toastr["success"]("Удалено из БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        })
+    };
+        
+     $("#AddEmployee").on("click", function (evt) {
+        var data = new FormData();
+        data.append("FirstName", $("#InputEmployeeFirstName").val());
+        data.append("Patronymic", $("#InputEmployeePatronymic").val());
+        data.append("SecondName", $("#InputEmployeeSecondName").val());
+        data.append("Birthday", $("#InputEmployeeBirthday").val());
+        data.append("Position", $("#InputEmployeePosition").val());
+        data.append("Departament", $("#InputEmployeeDepartament").val());
+        data.append("PhoneNumber", $("#InputEmployeePhone").val());
+        data.append("Experience", $("#InputEmployeeExperience").val());
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddEmployee")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись добавлена в БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        });
+     });
+        
+        function DeleteEmployee(id){
+        
+        $.ajax({
+            type: "Get",
+            url: "/home/DeleteEmployee?Id=" + id,
+            success: function (data) {
+                toastr["success"]("Удалено из БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        })
+    };
+</script>
