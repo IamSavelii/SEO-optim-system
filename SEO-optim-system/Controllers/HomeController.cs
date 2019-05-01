@@ -1,6 +1,7 @@
 ﻿using AngleSharp;
 using AngleSharp.Network.Default;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using SEO_optim_system.Models;
 using System;
@@ -37,6 +38,7 @@ namespace SEO_optim_system.Controllers
         {
             ViewBag.Companies = DbContext.Companies.ToList();
             ViewBag.Employees = DbContext.Employees.ToList();
+            ViewBag.Contracts = DbContext.Contracts.Include(c => c.Company).Include(c => c.Employee).ToList();
 
 
             return View();
@@ -55,10 +57,12 @@ namespace SEO_optim_system.Controllers
             return Json(DateTime.Now);
         }
 
+        // Company
         [HttpPost]
         public IActionResult AddCompany(Company model)
         {
-            Company temp = new Company() {
+            Company temp = new Company()
+            {
                 City = model.City,
                 Country = model.Country,
                 LPR = model.LPR,
@@ -87,31 +91,61 @@ namespace SEO_optim_system.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddRequirement(Requirement model)
+        public JsonResult GetCompanyById(int id)
         {
-            Requirement temp = new Requirement()
+            var temp = DbContext.Companies.FirstOrDefault(e => e.Id == id);
+            if (temp == null)
+                return Json(new { message = "error" });
+            return Json(temp);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateCompany(Company model)
+        {
+            var temp = DbContext.Companies.FirstOrDefault(e => e.Id == model.Id);
+            if (temp == null)
+                return BadRequest();
+            temp.Name = model.Name;
+            temp.Country = model.Country;
+            temp.City = model.City;
+            temp.LPR = model.LPR;
+            temp.PhoneNumber = model.PhoneNumber;
+            DbContext.SaveChanges();
+            return Ok();
+        }
+
+        // Contract
+        [HttpPost]
+        public IActionResult AddContract(Contract model)
+        {
+            Contract temp = new Contract()
             {
+                Name = model.Name,
+                Date = model.Date,
+                Url = model.Url,
                 Keywords = model.Keywords,
                 GooglePoz = model.GooglePoz,
                 YandexPoz = model.YandexPoz,
                 OptimImg = model.OptimImg,
                 OptimTag = model.OptimTag,
-                OptimText = model.OptimText
+                OptimText = model.OptimText,
+                CompanyId = model.CompanyId,
+                EmployeeId = model.EmployeeId
             };
-            DbContext.Requirements.Add(temp);
+            DbContext.Contracts.Add(temp);
             DbContext.SaveChanges();
             return Ok();
         }
 
         [HttpGet]
-        public IActionResult DeleteRequirement(int? id)
+        public IActionResult DeleteContract(int? id)
         {
             if (id != null)
             {
-                Requirement requirement = DbContext.Requirements.FirstOrDefault(p => p.Id == id);
-                if (requirement != null)
+                Contract contract = DbContext.Contracts.FirstOrDefault(p => p.Id == id);
+                if (contract != null)
                 {
-                    DbContext.Requirements.Remove(requirement);
+                    DbContext.Contracts.Remove(contract);
                     DbContext.SaveChanges();
                     return Ok();
                 }
@@ -119,6 +153,37 @@ namespace SEO_optim_system.Controllers
             return NotFound();
         }
 
+        [HttpPost]
+        public JsonResult GetContractById(int id)
+        {
+            var temp = DbContext.Contracts.FirstOrDefault(e => e.Id == id);
+            if (temp == null)
+                return Json(new { message = "error" });
+            return Json(temp);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateContract(Contract model)
+        {
+            var temp = DbContext.Contracts.FirstOrDefault(e => e.Id == model.Id);
+            if (temp == null)
+                return BadRequest();
+            temp.Name = model.Name;
+            temp.Date = model.Date;
+            temp.Url = model.Url;
+            temp.Keywords = model.Keywords;
+            temp.GooglePoz = model.GooglePoz;
+            temp.YandexPoz = model.YandexPoz;
+            temp.OptimImg = model.OptimImg;
+            temp.OptimTag = model.OptimTag;
+            temp.OptimText = model.OptimText;
+            temp.CompanyId = model.CompanyId;
+            temp.EmployeeId = model.EmployeeId;
+            DbContext.SaveChanges();
+            return Ok();
+        }
+
+        // Employee
         [HttpPost]
         public IActionResult AddEmployee(Employee model)
         {
@@ -152,6 +217,32 @@ namespace SEO_optim_system.Controllers
                 }
             }
             return NotFound();
+        }
+
+        [HttpPost]
+        public IActionResult UpdateEmployee(Employee model)
+        {
+            var temp = DbContext.Employees.FirstOrDefault(e => e.Id == model.Id);
+            if (temp == null)
+                return BadRequest();
+            temp.FirstName = model.FirstName;
+            temp.Patronymic = model.Patronymic;
+            temp.SecondName = model.SecondName;
+            temp.Position = model.Position;
+            temp.Department = model.Department;
+            temp.PhoneNumber = model.PhoneNumber;
+            temp.Experience = model.Experience;
+            DbContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpPost]
+        public JsonResult GetEmployee(int id)
+        {
+            var temp = DbContext.Employees.FirstOrDefault(e => e.Id == id);
+            if (temp == null)
+                return Json(new { message = "error" });
+            return Json(temp);
         }
 
 

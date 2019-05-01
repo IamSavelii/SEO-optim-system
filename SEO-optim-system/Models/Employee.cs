@@ -22,9 +22,9 @@ namespace SEO_optim_system.Models
         [Required]
         public AllDepartament Department { get; set; }
         public string PhoneNumber { get; set; }
-        [Required]
         public int Experience { get; set; }
         public DateTime Birthday { get; set; }
+        public ICollection<Contract> Contracts { get; set; }
 
         public enum AllDepartament
         {

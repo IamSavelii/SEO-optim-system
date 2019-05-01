@@ -5,12 +5,22 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace SEO_optim_system.Models
 {
-    public class Requirement
+    public class Contract
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [Required]
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
+        [Required]
+        public string Url { get; set; }
+        public int? CompanyId { get; set; }
+        public Company Company { get; set; }
+        public int? EmployeeId { get; set; }
+        public Employee Employee { get; set; }
         public string Keywords { get; set; }
         public int GooglePoz { get; set; }
         public int YandexPoz { get; set; }

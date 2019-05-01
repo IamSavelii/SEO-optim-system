@@ -41,6 +41,45 @@ namespace SEO_optim_system.Migrations
                     b.ToTable("Companies");
                 });
 
+            modelBuilder.Entity("SEO_optim_system.Models.Contract", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CompanyId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int?>("EmployeeId");
+
+                    b.Property<int>("GooglePoz");
+
+                    b.Property<string>("Keywords");
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<bool>("OptimImg");
+
+                    b.Property<bool>("OptimTag");
+
+                    b.Property<bool>("OptimText");
+
+                    b.Property<string>("Url")
+                        .IsRequired();
+
+                    b.Property<int>("YandexPoz");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CompanyId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Contracts");
+                });
+
             modelBuilder.Entity("SEO_optim_system.Models.Employee", b =>
                 {
                     b.Property<int>("Id")
@@ -72,27 +111,15 @@ namespace SEO_optim_system.Migrations
                     b.ToTable("Employees");
                 });
 
-            modelBuilder.Entity("SEO_optim_system.Models.Requirement", b =>
+            modelBuilder.Entity("SEO_optim_system.Models.Contract", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.HasOne("SEO_optim_system.Models.Company", "Company")
+                        .WithMany("Contracts")
+                        .HasForeignKey("CompanyId");
 
-                    b.Property<int>("GooglePoz");
-
-                    b.Property<string>("Keywords");
-
-                    b.Property<bool>("OptimImg");
-
-                    b.Property<bool>("OptimTag");
-
-                    b.Property<bool>("OptimText");
-
-                    b.Property<int>("YandexPoz");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Requirements");
+                    b.HasOne("SEO_optim_system.Models.Employee", "Employee")
+                        .WithMany("Contracts")
+                        .HasForeignKey("EmployeeId");
                 });
 #pragma warning restore 612, 618
         }

@@ -36,18 +36,24 @@
             <div class="form-group">
                 <label for="CompanySelect">Выберите компанию</label>
                 <select class="form-control" id="CompanySelect">
-                    <option>1</option>
+                    @foreach (var temp in ViewBag.Companies)
+                    {
+                        <option value="@temp.Id">@temp.Name</option>
+                    }
                 </select>
             </div>
             <div class="form-group">
                 <label for="EmployeeSelect">Выберите рабочего</label>
                 <select class="form-control" id="EmployeeSelect">
-                    <option>1</option>
+                    @foreach (var temp in ViewBag.Employees)
+                    {
+                        <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                    }
                 </select>
             </div>
             <div class="mb-3">
-                <label for="Textarea">Ключевые слова</label>
-                <textarea class="form-control" id="Textarea" placeholder="Слова вводить через запятую"></textarea>
+                <label for="TextareaKeywords">Ключевые слова</label>
+                <textarea class="form-control" id="TextareaKeywords" placeholder="Слова вводить через запятую"></textarea>
             </div>
             <div class="form-group">
                 <label for="InputGooglePoz">Позиция в Google</label>
@@ -58,15 +64,15 @@
                 <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex">
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" value="" id="OptimizImg">
+                <input class="custom-control-input" type="checkbox" id="OptimizImg">
                 <label class="custom-control-label" for="OptimizImg">Оптимизация изображений</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" value="" id="OptimizText">
+                <input class="custom-control-input" type="checkbox" id="OptimizText">
                 <label class="custom-control-label" for="OptimizText">Оптимизация текста</label>
             </div>
             <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" value="" id="OptimizTag">
+                <input class="custom-control-input" type="checkbox" id="OptimizTag">
                 <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
             </div>
             <br>
@@ -100,20 +106,46 @@
                     <td><b>Текст</b></td>
                     <td><b>Тэги</b></td>
                 </tr>
-                <tr>
-                    <td>Название проекта</td>
-                    <td>Дата</td>
-                    <td>Сайт</td>
-                    <td>Компания</td>
-                    <td>Выполняет</td>
-                    <td>Google</td>
-                    <td>Yandex</td>
-                    <td>Изображения</td>
-                    <td>Текст</td>
-                    <td>Тэги</td>
-                    <td><a href="#">Изменить</a></td>
-                    <td><a href="#">Удалить</a></td>
-                </tr>
+                @foreach (var item in (List<Contract>) ViewBag.Contracts)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Date</td>
+                        <td>@item.Url</td>
+                        <td>@item.Company.Name</td>
+                        <td>@item.Employee.FirstName @item.Employee.SecondName</td>
+                        <td>@item.GooglePoz</td>
+                        <td>@item.YandexPoz</td>
+                        <td>
+                            @if (@item.OptimImg == true) {
+                                <text>Да</text>
+                            }
+                            else{
+                                <text>Нет</text> 
+                            }
+                        </td>
+                        <td>
+                            @if (@item.OptimText == true)
+                            {
+                                <text>Да</text>
+                            }
+                            else{
+                                <text>Нет</text> 
+                            }
+                        </td>
+                        <td>
+                            @if (@item.OptimTag == true)
+                            {
+                                <text>Да</text>
+                            }
+                            else{
+                                <text>Нет</text> 
+                            }
+                        </td>
+                        <td><button type="button" class="btn btn-primary" onclick="GetContractById(@item.Id)">Изменить</button></td>
+                        <td><button type="button" class="btn btn-secondary" onclick="DeleteContract(@item.Id)">Удалить</button></td>
+                    </tr>
+                }
             </table>
         </div>
         <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
@@ -168,7 +200,7 @@
                         <td>@item.City</td>
                         <td>@item.LPR</td>
                         <td>@item.PhoneNumber</td>
-                        <td><a href="#">Изменить</a></td>
+                        <td><button type="button" class="btn btn-primary" onclick="GetCompanyById(@item.Id)">Изменить</button></td>
                         <td><button type="button" class="btn btn-secondary" onclick="DeleteCompany(@item.Id)">Удалить</button></td>
                     </tr>
                 }
@@ -197,12 +229,11 @@
             </div>
             <div class="form-group">
                 <label for="InputEmployeeDepartament">Отдел</label>
-                <select class="custom-select" id="InputEmployeeDepartament">
-                    <option selected>Выберите отдел</option>
-                    <option value="Администрация">Администрация</option>
-                    <option value="Бухгалтерия">Бухгалтерия</option>
-                    <option value="Разработка">Разработка</option>
-                    <option value="Отдел маркетинга">Отдел маркетинга</option>
+                <select class="custom-select" id="InputEmployeeDepartment">
+                    <option value="0">Администрация</option>
+                    <option value="1">Бухгалтерия</option>
+                    <option value="2">Разработка</option>
+                    <option value="3">Отдел маркетинга</option>
                 </select>
             </div>
             <div class="form-group">
@@ -236,25 +267,207 @@
                     <td>Изменить</td>
                     <td>Удалить</td>
                 </tr>
-                    @foreach (var item in (List<Employee>)ViewBag.Employees)
-                    {
-                        <tr>
-                            <td>@item.FirstName @item.Patronymic @item.SecondName</td>
-                            <td>@item.Birthday</td>
-                            <td>@item.Position</td>
-                            <td>@item.Department</td>
-                            <td>@item.PhoneNumber</td>
-                            <td>@item.Experience</td>
-                            <td><a href="#">Изменить</a></td>
-                            <td><button type="button" class="btn btn-secondary" onclick="DeleteEmployee(@item.Id)">Удалить</button></td>
-                        </tr>
-                    }
+                @foreach (var item in (List<Employee>)ViewBag.Employees)
+                {
+                    <tr>
+                        <td>@item.FirstName @item.Patronymic @item.SecondName</td>
+                        <td>@item.Birthday</td>
+                        <td>@item.Position</td>
+                        <td>@item.Department</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>@item.Experience</td>
+                        <td><button type="button" class="btn btn-primary" onclick="GetEmployeeById(@item.Id)">Изменить</button></td>
+                        <td><button type="button" class="btn btn-secondary" onclick="DeleteEmployee(@item.Id)">Удалить</button></td>
+                    </tr>
+                }
             </table>
         </div>
     </div>
 </div>
 
+<div class="modal" tabindex="-1" role="dialog" id="EmployeesModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="FullName"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="EmployeeId" class="form-control-label">Id:</label>
+                        <input type="text" class="form-control" id="EmployeeId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeeFirstName" class="form-control-label">Имя:</label>
+                        <input type="text" class="form-control" id="EditEmployeeFirstName">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeePatronymic" class="form-control-label">Отчество:</label>
+                        <input type="text" class="form-control" id="EditEmployeePatronymic">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeeSecondName" class="form-control-label">Фамилия:</label>
+                        <input type="text" class="form-control" id="EditEmployeeSecondName">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeePosition" class="form-control-label">Должность:</label>
+                        <input type="text" class="form-control" id="EditEmployeePosition">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeeDepartament">Отдел</label>
+                        <select class="custom-select" id="EditEmployeeDepartment">
+                            <option value="0">Администрация</option>
+                            <option value="1">Бухгалтерия</option>
+                            <option value="2">Разработка</option>
+                            <option value="3">Отдел маркетинга</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeePhone" class="form-control-label">Номер телефона:</label>
+                        <input type="text" class="form-control" id="EditEmployeePhone">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeeExperience" class="form-control-label">Стаж:</label>
+                        <input type="text" class="form-control" id="EditEmployeeExperience">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateEmployeeModal()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="CompaniesModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Name"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="CompanyId" class="form-control-label">Id:</label>
+                        <input type="text" class="form-control" id="CompanyId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanyName" class="form-control-label">Название компании:</label>
+                        <input type="text" class="form-control" id="EditCompanyName">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanyCountry" class="form-control-label">Страна:</label>
+                        <input type="text" class="form-control" id="EditCompanyCountry">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanyCity" class="form-control-label">Город:</label>
+                        <input type="text" class="form-control" id="EditCompanyCity">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanyLPR" class="form-control-label">Лицо принимающее решение:</label>
+                        <input type="text" class="form-control" id="EditCompanyLPR">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanyPhone" class="form-control-label">Номер телефона:</label>
+                        <input type="text" class="form-control" id="EditCompanyPhone">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateCompanyModal()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" role="dialog" id="ContractsModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Name"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="ContractId" class="form-control-label">Id:</label>
+                        <input type="text" class="form-control" id="ContractId" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditContractName" class="form-control-label">Название проекта:</label>
+                        <input type="text" class="form-control" id="EditContractName">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanyDate" class="form-control-label">Дата:</label>
+                        <input type="text" class="form-control" id="EditCompanyDate" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanySite" class="form-control-label">Сайт:</label>
+                        <input type="text" class="form-control" id="EditCompanySite">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditCompanySelect">Выберите компанию</label>
+                        <select class="form-control" id="EditCompanySelect">
+                            @foreach (var temp in ViewBag.Companies)
+                            {
+                                <option value="@temp.Id">@temp.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeeSelect">Выберите рабочего</label>
+                        <select class="form-control" id="EditEmployeeSelect">
+                            @foreach (var temp in ViewBag.Employees)
+                            {
+                                <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditContractKeywords" class="form-control-label">Ключевые слова:</label>
+                        <textarea type="text" class="form-control" id="EditContractKeywords" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditContractGooglePoz" class="form-control-label">Позиция в Google:</label>
+                        <input type="text" class="form-control" id="EditContractGooglePoz">
+                    </div>
+                    <div class="form-group">
+                        <label for="EditContractYandexPoz" class="form-control-label">Позиция в Yandex:</label>
+                        <input type="text" class="form-control" id="EditContractYandexPoz">
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" id="EditContractOptimizImg">
+                        <label class="custom-control-label" for="EditContractOptimizImg">Оптимизация изображений</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" id="EditContractOptimizText">
+                        <label class="custom-control-label" for="EditContractOptimizText">Оптимизация текста</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" id="EditContractOptimizTag">
+                        <label class="custom-control-label" for="EditContractOptimizTag">Оптимизация тэгов</label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick="UpdateContractModal()">Сохранить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script>
+        // Table Companies
     $("#AddCompany").on("click", function (evt) {
         var data = new FormData();
         data.append("Name", $("#InputCompanyName").val());
@@ -276,10 +489,9 @@
                 toastr["error"](request)
             },
         });
-    });
-    
+     });
+
     function DeleteCompany(id){
-        
         $.ajax({
             type: "Get",
             url: "/home/DeleteCompany?Id=" + id,
@@ -292,15 +504,67 @@
             },
         })
     };
-        
-     $("#AddEmployee").on("click", function (evt) {
+
+    function GetCompanyById(id) {
+        $("#CompaniesModal").modal("show");
+        var data = new FormData();
+        data.append("Id", id);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetCompanyById")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                window.temp = data;
+                $("#FullName").text(data.name);
+                $("#CompanyId").val(data.id);
+                $("#EditCompanyName").val(data.name);
+                $("#EditCompanyCountry").val(data.country);
+                $("#EditCompanyCity").val(data.city);
+                $("#EditCompanyLPR").val(data.lpr);
+                $("#EditCompanyPhone").val(data.phoneNumber);
+            },
+            error: function (request) {
+                toastr["error"](request.message)
+            },
+        })
+    };
+
+    function UpdateCompanyModal() {
+        var data = new FormData();
+        data.append("Id",  $("#CompanyId").val());
+        data.append("Name", $("#EditCompanyName").val());
+        data.append("Country", $("#EditCompanyCountry").val());
+        data.append("City", $("#EditCompanyCity").val());
+        data.append("LPR", $("#EditCompanyLPR").val());
+        data.append("PhoneNumber", $("#EditCompanyPhone").val());
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("UpdateCompany")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись изменена");
+                $("#CompaniesModal").modal("hide");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request.message)
+            },
+        })
+    };
+
+    // Table Employees
+    $("#AddEmployee").on("click", function (evt) {
         var data = new FormData();
         data.append("FirstName", $("#InputEmployeeFirstName").val());
         data.append("Patronymic", $("#InputEmployeePatronymic").val());
         data.append("SecondName", $("#InputEmployeeSecondName").val());
         data.append("Birthday", $("#InputEmployeeBirthday").val());
         data.append("Position", $("#InputEmployeePosition").val());
-        data.append("Departament", $("#InputEmployeeDepartament").val());
+        data.append("Department", $("#InputEmployeeDepartment").val());
         data.append("PhoneNumber", $("#InputEmployeePhone").val());
         data.append("Experience", $("#InputEmployeeExperience").val());
         $.ajax({
@@ -318,9 +582,8 @@
             },
         });
      });
-        
-        function DeleteEmployee(id){
-        
+
+    function DeleteEmployee(id){
         $.ajax({
             type: "Get",
             url: "/home/DeleteEmployee?Id=" + id,
@@ -330,6 +593,180 @@
             },
             error: function (request) {
                 toastr["error"](request)
+            },
+        })
+     };
+
+    function GetEmployeeById(id) {
+        $("#EmployeesModal").modal("show");
+        var data = new FormData();
+        data.append("Id", id);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetEmployee")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                window.temp = data;
+                $("#FullName").text(data.firstName + " " + data.secondName);
+                $("#EmployeeId").val(data.id);
+                $("#EditEmployeeFirstName").val(data.firstName);
+                $("#EditEmployeePatronymic").val(data.patronymic);
+                $("#EditEmployeeSecondName").val(data.secondName);
+                $("#EditEmployeePosition").val(data.position);
+                $("#EditEmployeeDepartment").val(data.department);
+                $("#EditEmployeePhone").val(data.phoneNumber);
+                $("#EditEmployeeExperience").val(data.experience);
+                toastr["success"]("Запись добавлена в БД");
+            },
+            error: function (request) {
+                toastr["error"](request.message)
+            },
+        })
+    };
+
+    function UpdateEmployeeModal() {
+        var data = new FormData();
+        data.append("Id",  $("#EmployeeId").val());
+        data.append("FirstName", $("#EditEmployeeFirstName").val());
+        data.append("Patronymic", $("#EditEmployeePatronymic").val());
+        data.append("SecondName", $("#EditEmployeeSecondName").val());
+        data.append("Position", $("#EditEmployeePosition").val());
+        data.append("Department", $("#EditEmployeeDepartment").val());
+        data.append("PhoneNumber", $("#EditEmployeePhone").val());
+        data.append("Experience", $("#EditEmployeeExperience").val());
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("UpdateEmployee")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись изменена");
+                $("#EmployeesModal").modal("hide");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request.message)
+            },
+        })
+    };
+
+    // Table Contract
+    $("#AddContract").on("click", function (evt) {
+        var data = new FormData();
+        data.append("Name", $("#InputProjectName").val());
+        data.append("Date", $("#InputProjectDate").val());
+        data.append("Url", $("#InputProjectSite").val());
+        data.append("CompanyId", $("#CompanySelect").val());
+        data.append("EmployeeId", $("#EmployeeSelect").val());
+        data.append("Keywords", $("#TextareaKeywords").val());
+        data.append("GooglePoz", $("#InputGooglePoz").val());
+        data.append("YandexPoz", $("#InputYandexPoz").val());
+        data.append("OptimImg", $("#OptimizImg").is(":checked"));
+        data.append("OptimText", $("#OptimizText").is(":checked"));
+        data.append("OptimTag", $("#OptimizTag").is(":checked"));
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddContract")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись добавлена в БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        });
+    });
+
+    function DeleteContract(id){
+        $.ajax({
+            type: "Get",
+            url: "/home/DeleteContract?Id=" + id,
+            success: function (data) {
+                toastr["success"]("Удалено из БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        })
+    };
+
+    function GetContractById(id) {
+        $("#ContractsModal").modal("show");
+        var data = new FormData();
+        data.append("Id", id);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetContractById")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                $("#Name").text(data.name);
+                $("#ContractId").val(data.id);
+                $("#EditContractName").val(data.name);
+                $("#EditCompanyDate").val(data.date);
+                $("#EditCompanySite").val(data.url);
+                $("#EditCompanySelect").val(data.companyId);
+                $("#EditEmployeeSelect").val(data.employeeId);
+                $("#EditContractKeywords").val(data.keywords);
+                $("#EditContractGooglePoz").val(data.googlePoz);
+                $("#EditContractYandexPoz").val(data.yandexPoz);
+                if (data.optimImg === true) {
+                    $("#EditContractOptimizImg").attr("checked", "checked");
+                } else {
+                    $("#EditContractOptimizImg").removeAttr("checked");
+                }
+                if (data.optimText === true) {
+                    $("#EditContractOptimizText").attr("checked", "checked");
+                } else {
+                    $("#EditContractOptimizText").removeAttr("checked");
+                }
+                if (data.optimTag === true) {
+                    $("#EditContractOptimizTag").attr("checked", "checked");
+                } else {
+                    $("#EditContractOptimizTag").removeAttr("checked");
+                }
+            },
+            error: function (request) {
+                toastr["error"](request.message)
+            },
+        })
+    };
+
+    function UpdateContractModal() {
+        var data = new FormData();
+        data.append("Id",  $("#ContractId").val());
+        data.append("Name", $("#EditContractName").val());
+        data.append("Date", $("#EditCompanyDate").val());
+        data.append("Url", $("#EditCompanySite").val());
+        data.append("CompanyId", $("#EditCompanySelect").val());
+        data.append("EmployeeId", $("#EditEmployeeSelect").val());
+        data.append("Keywords", $("#EditContractKeywords").val());
+        data.append("GooglePoz", $("#EditContractGooglePoz").val());
+        data.append("YandexPoz", $("#EditContractYandexPoz").val());
+        data.append("OptimImg", $("#EditContractOptimizImg").is(":checked"));
+        data.append("OptimText", $("#EditContractOptimizText").is(":checked"));
+        data.append("OptimTag", $("#EditContractOptimizTag").is(":checked"));
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("UpdateContract")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись изменена");
+                $("#ContractsModal").modal("hide");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request.message)
             },
         })
     };

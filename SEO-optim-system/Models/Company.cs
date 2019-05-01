@@ -17,5 +17,6 @@ namespace SEO_optim_system.Models
         public string City { get; set; }
         public string LPR { get; set; }  // лицо, принимающее решения
         public string PhoneNumber { get; set; }
+        public ICollection<Contract> Contracts { get; set; }
     }
 }
