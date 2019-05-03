@@ -39,22 +39,20 @@ namespace SEO_optim_system.Controllers
             ViewBag.Companies = DbContext.Companies.ToList();
             ViewBag.Employees = DbContext.Employees.ToList();
             ViewBag.Contracts = DbContext.Contracts.Include(c => c.Company).Include(c => c.Employee).ToList();
-
-
             return View();
         }
         public IActionResult Report()
         {
+            ViewBag.ABS = "fdsa";
+            ViewBag.Companies = DbContext.Companies.ToList();
+            ViewBag.Employees = DbContext.Employees.ToList();
+            ViewBag.Contracts = DbContext.Contracts.Include(c => c.Company).Include(c => c.Employee).ToList();
+            ViewBag.Reports = DbContext.Reports.Include(c => c.Contract).Include(c => c.Employee).ToList();
             return View();
         }
         public IActionResult Directory()
         {
             return View();
-        }
-
-        public JsonResult GetSpam()
-        {
-            return Json(DateTime.Now);
         }
 
         // Company
@@ -245,6 +243,60 @@ namespace SEO_optim_system.Controllers
             return Json(temp);
         }
 
+        // Report
+        [HttpPost]
+        public IActionResult AddReport(Report model)
+        {
+            Report temp = new Report()
+            {
+                Date = model.Date,
+                Activity = model.Activity,
+                ContractId = model.ContractId,
+                EmployeeId = model.EmployeeId
+            };
+            DbContext.Reports.Add(temp);
+            DbContext.SaveChanges();
+            return Ok();
+        }
+
+        [HttpGet]
+        public IActionResult DeleteReport(int? id)
+        {
+            if (id != null)
+            {
+                Report report = DbContext.Reports.FirstOrDefault(p => p.Id == id);
+                if (report != null)
+                {
+                    DbContext.Reports.Remove(report);
+                    DbContext.SaveChanges();
+                    return Ok();
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public JsonResult GetReportById(int id)
+        {
+            var temp = DbContext.Reports.FirstOrDefault(e => e.Id == id);
+            if (temp == null)
+                return Json(new { message = "error" });
+            return Json(temp);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateReport(Report model)
+        {
+            var temp = DbContext.Reports.FirstOrDefault(e => e.Id == model.Id);
+            if (temp == null)
+                return BadRequest();
+            temp.Date = model.Date;
+            temp.Activity = model.Activity;
+            temp.ContractId = model.ContractId;
+            temp.EmployeeId = model.EmployeeId;
+            DbContext.SaveChanges();
+            return Ok();
+        }
 
         public async Task<JsonResult> GetParametrs(string url)
         {

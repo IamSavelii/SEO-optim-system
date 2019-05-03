@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-
 namespace SEO_optim_system.Models
 {
     public class Contract
@@ -27,5 +26,6 @@ namespace SEO_optim_system.Models
         public bool OptimImg { get; set; }
         public bool OptimText { get; set; }
         public bool OptimTag { get; set; }
+        public ICollection<Report> Reports { get; set; }
     }
 }

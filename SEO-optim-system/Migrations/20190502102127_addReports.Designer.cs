@@ -10,8 +10,8 @@ using SEO_optim_system.Models;
 namespace SEO_optim_system.Migrations
 {
     [DbContext(typeof(seoContext))]
-    [Migration("20190430165059_addContract")]
-    partial class addContract
+    [Migration("20190502102127_addReports")]
+    partial class addReports
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,6 +113,29 @@ namespace SEO_optim_system.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("SEO_optim_system.Models.Report", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Activity");
+
+                    b.Property<int?>("ContractId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<int?>("EmployeeId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ContractId");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("Reports");
+                });
+
             modelBuilder.Entity("SEO_optim_system.Models.Contract", b =>
                 {
                     b.HasOne("SEO_optim_system.Models.Company", "Company")
@@ -121,6 +144,17 @@ namespace SEO_optim_system.Migrations
 
                     b.HasOne("SEO_optim_system.Models.Employee", "Employee")
                         .WithMany("Contracts")
+                        .HasForeignKey("EmployeeId");
+                });
+
+            modelBuilder.Entity("SEO_optim_system.Models.Report", b =>
+                {
+                    b.HasOne("SEO_optim_system.Models.Contract", "Contract")
+                        .WithMany("Reports")
+                        .HasForeignKey("ContractId");
+
+                    b.HasOne("SEO_optim_system.Models.Employee", "Employee")
+                        .WithMany("Reports")
                         .HasForeignKey("EmployeeId");
                 });
 #pragma warning restore 612, 618

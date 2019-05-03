@@ -25,6 +25,7 @@ namespace SEO_optim_system.Models
         public int Experience { get; set; }
         public DateTime Birthday { get; set; }
         public ICollection<Contract> Contracts { get; set; }
+        public ICollection<Report> Reports { get; set; }
 
         public enum AllDepartament
         {

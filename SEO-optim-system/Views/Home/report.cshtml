@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Отчёты";
-    ViewData["Description"] = "Страница для создания отчётов о проделанной работе";
+    ViewData["Description"] = "Страница создания отчётов";
 }
 
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
@@ -11,23 +11,160 @@
         <div class="form-group">
             <label for="ContractSelect">Выберите контракт</label>
             <select class="form-control" id="ContractSelect">
-                <option>1</option>
+                @foreach (var temp in ViewBag.Contracts)
+                {
+                    <option value="@temp.Id">@temp.Name - @temp.Company.Name</option>
+                }
             </select>
         </div>
         <div class="form-group">
             <label for="InputDate">Дата создания отчёта</label>
-            <input type="date" class="form-control" id="InputDate" placeholder="Дата">
+            <input type="datetime-local" class="form-control" id="InputDate" placeholder="Дата">
         </div>
         <div class="form-group">
             <label for="EmployeeSelect">Выберите рабочего</label>
             <select class="form-control" id="EmployeeSelect">
-                <option>1</option>
+                @foreach (var temp in ViewBag.Employees)
+                {
+                    <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                }
             </select>
         </div>
         <div class="mb-3">
-            <label for="Textarea">Выполненые мероприятия</label>
-            <textarea class="form-control" id="Textarea"></textarea>
+            <label for="TextareaActivity">Выполненые мероприятия</label>
+            <textarea class="form-control" id="TextareaActivity"></textarea>
         </div>
-        <button type="button" class="btn btn-primary btn-lg btn-block pb-3">Создать отчёт</button>
+        <button type="button" class="btn btn-primary btn-lg btn-block pb-3" id="AddReport">Создать отчёт</button>
     </form>
 </div>
+
+<div class="modal" tabindex="-1" role="dialog" id="ReportModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="DateReport"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="ReportId">Id:</label>
+                        <input type="text" class="form-control" id="ReportId" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditContractSelect">Выберите контракт</label>
+                        <select class="form-control" id="EditContractSelect" readonly>
+                            @foreach (var temp in ViewBag.Contracts)
+                            {
+                                <option value="@temp.Id">@temp.Name - @temp.Company.Name</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditDate">Дата создания отчёта</label>
+                        <input type="datetime-local" class="form-control" id="EditDate" placeholder="Дата" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="EditEmployeeSelect">Выберите рабочего</label>
+                        <select class="form-control" id="EditEmployeeSelect" readonly>
+                            @foreach (var temp in ViewBag.Employees)
+                            {
+                                <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="EditActivity">Выполненые мероприятия</label>
+                        <textarea class="form-control" id="EditActivity" readonly></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="dropdown" style="text-align: right;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Экспорт
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#" onclick="doit('xlsx')">Excel</a>
+                        <a class="dropdown-item" href="#" onclick="">HTML</a>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" onclick='DeleteReport(document.getElementById("ReportId").value)'>Удалить</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#AddReport").on("click", function (evt) {
+        var data = new FormData();
+        data.append("Date", $("#InputDate").val());
+        data.append("ContractId", $("#ContractSelect").val());
+        data.append("EmployeeId", $("#EmployeeSelect").val());
+        data.append("Activity", $("#TextareaActivity").val());
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("AddReport")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                toastr["success"]("Запись добавлена в БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        });
+    });
+
+    function DeleteReport(id){
+        $.ajax({
+            type: "Get",
+            url: "/home/DeleteReport?Id=" + id,
+            success: function (data) {
+                toastr["success"]("Удалено из БД");
+                setTimeout(location.reload(), 3000);
+            },
+            error: function (request) {
+                toastr["error"](request)
+            },
+        })
+    };
+
+    function GetReportById(id) {
+        $("#ReportModal").modal("show");
+        var data = new FormData();
+        data.append("Id", id);
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("GetReportById")",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (data) {
+                $("#DateReport").text(data.date);
+                $("#ReportId").val(data.id);
+                $("#EditDate").val(data.date);
+                $("#EditContractSelect").val(data.contractId);
+                $("#EditEmployeeSelect").val(data.employeeId);
+                $("#EditActivity").val(data.activity);
+            },
+            error: function (request) {
+                toastr["error"](request.message)
+            },
+        })
+    };
+
+    
+function doit(type, fn, dl) {
+	var elt = document.getElementById('data-table');
+	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
+	return dl ?
+		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
+		XLSX.writeFile(wb, fn || ('test.' + (type || 'xlsx')));
+    };
+</script>

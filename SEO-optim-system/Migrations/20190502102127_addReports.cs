@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SEO_optim_system.Migrations
 {
-    public partial class addContract : Migration
+    public partial class addReports : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,6 +63,34 @@ namespace SEO_optim_system.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Reports",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    EmployeeId = table.Column<int>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: false),
+                    ContractId = table.Column<int>(nullable: true),
+                    Activity = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reports", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reports_Contracts_ContractId",
+                        column: x => x.ContractId,
+                        principalTable: "Contracts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Reports_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
+                        principalTable: "Employees",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Contracts_CompanyId",
                 table: "Contracts",
@@ -72,10 +100,23 @@ namespace SEO_optim_system.Migrations
                 name: "IX_Contracts_EmployeeId",
                 table: "Contracts",
                 column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_ContractId",
+                table: "Reports",
+                column: "ContractId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reports_EmployeeId",
+                table: "Reports",
+                column: "EmployeeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Reports");
+
             migrationBuilder.DropTable(
                 name: "Contracts");
 
