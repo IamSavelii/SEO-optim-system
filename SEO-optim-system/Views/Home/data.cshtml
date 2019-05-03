@@ -83,53 +83,55 @@
                     Экспорт
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Excel</a>
+                    <a class="dropdown-item" onclick="ToExcelContract('xlsx')">Excel</a>
                     <a class="dropdown-item" href="#">HTML</a>
                 </div>
             </div>
             <br>
-            <table class="table table-bordered text-center" style="font-size:12px;">
-                <tr style="background-color: rgba(156, 156, 156, 0.75); vertical-align:middle; text-align:center" class="align-middle">
-                    <th rowspan="2">Название</th>
-                    <th rowspan="2">Дата</th>
-                    <th rowspan="2">Cайт</th>
-                    <th rowspan="2">Компания</th>
-                    <th rowspan="2">Выполняет</th>
-                    <th rowspan="2">Google</th>
-                    <th rowspan="2">Yandex</th>
-                    <th colspan="3">Оптимизация</th>
-                    <th rowspan="2">Изменить</th>
-                    <th rowspan="2">Удалить</th>
-                </tr>
-                <tr style="background-color: rgba(156, 156, 156, 0.75)">
-                    <td><b>Изображения</b></td>
-                    <td><b>Текст</b></td>
-                    <td><b>Тэги</b></td>
-                </tr>
-                @foreach (var item in (List<Contract>) ViewBag.Contracts)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Date</td>
-                        <td><a href="https://@item.Url">@item.Url</a></td>
-                        <td>@item.Company.Name</td>
-                        <td>@item.Employee.FirstName @item.Employee.SecondName</td>
-                        <td>@item.GooglePoz</td>
-                        <td>@item.YandexPoz</td>
-                        <td>
-                            @(@item.OptimImg == true ? "Да" : "Нет")
-                        </td>
-                        <td>
-                            @(@item.OptimText == true ? "Да" : "Нет")
-                        </td>
-                        <td>
-                            @(@item.OptimTag == true ? "Да" : "Нет")
-                        </td>
-                        <td><button type="button" class="btn btn-primary" onclick="GetContractById(@item.Id)">Изменить</button></td>
-                        <td><button type="button" class="btn btn-secondary" onclick="DeleteContract(@item.Id)">Удалить</button></td>
+            <div id="data-table-contracts">
+                <table class="table table-bordered text-center" style="font-size:12px;">
+                    <tr style="background-color: rgba(156, 156, 156, 0.75); vertical-align:middle; text-align:center" class="align-middle">
+                        <th rowspan="2">Название</th>
+                        <th rowspan="2">Дата</th>
+                        <th rowspan="2">Cайт</th>
+                        <th rowspan="2">Компания</th>
+                        <th rowspan="2">Выполняет</th>
+                        <th rowspan="2">Google</th>
+                        <th rowspan="2">Yandex</th>
+                        <th colspan="3">Оптимизация</th>
+                        <th rowspan="2">Изменить</th>
+                        <th rowspan="2">Удалить</th>
                     </tr>
-                }
-            </table>
+                    <tr style="background-color: rgba(156, 156, 156, 0.75)">
+                        <td><b>Изображения</b></td>
+                        <td><b>Текст</b></td>
+                        <td><b>Тэги</b></td>
+                    </tr>
+                    @foreach (var item in (List<Contract>)ViewBag.Contracts)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Date</td>
+                            <td><a href="https://@item.Url">@item.Url</a></td>
+                            <td>@item.Company.Name</td>
+                            <td>@item.Employee.FirstName @item.Employee.SecondName</td>
+                            <td>@item.GooglePoz</td>
+                            <td>@item.YandexPoz</td>
+                            <td>
+                                @(@item.OptimImg == true ? "Да" : "Нет")
+                            </td>
+                            <td>
+                                @(@item.OptimText == true ? "Да" : "Нет")
+                            </td>
+                            <td>
+                                @(@item.OptimTag == true ? "Да" : "Нет")
+                            </td>
+                            <td><button type="button" class="btn btn-primary" onclick="GetContractById(@item.Id)">Изменить</button></td>
+                            <td><button type="button" class="btn btn-secondary" onclick="DeleteContract(@item.Id)">Удалить</button></td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
         <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
             <div class="form-group pt-3">
@@ -159,35 +161,37 @@
                     Экспорт
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Excel</a>
+                    <a class="dropdown-item" onclick="ToExcelCompany('xlsx')">Excel</a>
                     <a class="dropdown-item" href="#">HTML</a>
                 </div>
             </div>
             <br>
-            <table class="table table-bordered text-center">
-                <tr style="background-color: rgba(156, 156, 156, 0.75)">
-                    <td>Название компании</td>
-                    <td>Страна</td>
-                    <td>Город</td>
-                    <td>ФИО</td>
-                    <td>Номер телефона</td>
-                    <td>Изменить</td>
-                    <td>Удалить</td>
-                </tr>
-
-                @foreach (var item in (List<Company>)ViewBag.Companies)
-                {
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.Country</td>
-                        <td>@item.City</td>
-                        <td>@item.LPR</td>
-                        <td>@item.PhoneNumber</td>
-                        <td><button type="button" class="btn btn-primary" onclick="GetCompanyById(@item.Id)">Изменить</button></td>
-                        <td><button type="button" class="btn btn-secondary" onclick="DeleteCompany(@item.Id)">Удалить</button></td>
+            <div id="data-table-company">
+                <table class="table table-bordered text-center">
+                    <tr style="background-color: rgba(156, 156, 156, 0.75)">
+                        <td>Название компании</td>
+                        <td>Страна</td>
+                        <td>Город</td>
+                        <td>ФИО</td>
+                        <td>Номер телефона</td>
+                        <td>Изменить</td>
+                        <td>Удалить</td>
                     </tr>
-                }
-            </table>
+
+                    @foreach (var item in (List<Company>)ViewBag.Companies)
+                    {
+                        <tr>
+                            <td>@item.Name</td>
+                            <td>@item.Country</td>
+                            <td>@item.City</td>
+                            <td>@item.LPR</td>
+                            <td>@item.PhoneNumber</td>
+                            <td><button type="button" class="btn btn-primary" onclick="GetCompanyById(@item.Id)">Изменить</button></td>
+                            <td><button type="button" class="btn btn-secondary" onclick="DeleteCompany(@item.Id)">Удалить</button></td>
+                        </tr>
+                    }
+                </table>
+            </div>
         </div>
         <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
             <div class="form-group pt-3">
@@ -753,6 +757,7 @@
         };
 
     // Export
+    /// To xlsx
     function ToExcelEmployee(type, fn, dl) {
 	var elt = document.getElementById('data-table-employees');
 	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
@@ -774,6 +779,9 @@
 	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
 	return dl ?
 		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
-		XLSX.writeFile(wb, fn || ('Employees.' + (type || 'xlsx')));
-    };
+		XLSX.writeFile(wb, fn || ('Companies.' + (type || 'xlsx')));
+        };
+
+    /// To HTML
+
 </script>
