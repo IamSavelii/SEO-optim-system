@@ -84,7 +84,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" onclick="ToExcelContract('xlsx')">Excel</a>
-                    <a class="dropdown-item" href="#">HTML</a>
+                    <a class="dropdown-item" onclick="ToHTMLContract('html')">HTML</a>
                 </div>
             </div>
             <br>
@@ -162,11 +162,11 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" onclick="ToExcelCompany('xlsx')">Excel</a>
-                    <a class="dropdown-item" href="#">HTML</a>
+                    <a class="dropdown-item" onclick="ToHTMLCompany('html')">HTML</a>
                 </div>
             </div>
             <br>
-            <div id="data-table-company">
+            <div id="data-table-companies">
                 <table class="table table-bordered text-center">
                     <tr style="background-color: rgba(156, 156, 156, 0.75)">
                         <td>Название компании</td>
@@ -239,7 +239,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                     <a class="dropdown-item" onclick="ToExcelEmployee('xlsx')">Excel</a>
-                    <a class="dropdown-item" href="#">HTML</a>
+                    <a class="dropdown-item" onclick="ToHTMLEmployee('html')">HTML</a>
                 </div>
             </div>
             <br>
@@ -775,13 +775,35 @@
         };
 
     function ToExcelCompany(type, fn, dl) {
-	var elt = document.getElementById('data-table-company');
+	var elt = document.getElementById('data-table-companies');
 	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
 	return dl ?
 		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
 		XLSX.writeFile(wb, fn || ('Companies.' + (type || 'xlsx')));
+    };
+
+    // To HTML
+    function ToHTMLCompany(type, fn, dl) {
+	var elt = document.getElementById('data-table-companies');
+	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
+	return dl ?
+		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
+		XLSX.writeFile(wb, fn || ('Companies.' + (type || 'html')));
+    };
+
+    function ToHTMLEmployee(type, fn, dl) {
+	var elt = document.getElementById('data-table-employees');
+	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
+	return dl ?
+		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
+		XLSX.writeFile(wb, fn || ('Employees.' + (type || 'html')));
+    };
+
+    function ToHTMLContract(type, fn, dl) {
+	var elt = document.getElementById('data-table-contracts');
+	var wb = XLSX.utils.table_to_book(elt, {sheet:"Sheet JS"});
+	return dl ?
+		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
+		XLSX.writeFile(wb, fn || ('Contracts.' + (type || 'html')));
         };
-
-    /// To HTML
-
 </script>
