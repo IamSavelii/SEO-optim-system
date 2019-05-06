@@ -21,73 +21,87 @@
     </ul>
     <div class="tab-content" id="myTabContent">
         <div class="tab-pane fade show active" id="Contract" role="tabpanel" aria-labelledby="Contract-tab">
-            <div class="form-group pt-3">
-                <label for="InputProjectName">Название проекта</label>
-                <input type="text" class="form-control" id="InputProjectName" placeholder="Название проекта">
-            </div>
-            <div class="form-group">
-                <label for="InputProjectDate">Дата заключения договора</label>
-                <input type="date" class="form-control" id="InputProjectDate" placeholder="Дата">
-            </div>
-            <div class="form-group">
-                <label for="InputProjectSite">Сайт для продвижения</label>
-                <input type="text" class="form-control" id="InputProjectSite" placeholder="Сайт">
-            </div>
-            <div class="form-group">
-                <label for="CompanySelect">Выберите компанию</label>
-                <select class="form-control" id="CompanySelect">
-                    @foreach (var temp in ViewBag.Companies)
-                    {
-                        <option value="@temp.Id">@temp.Name</option>
-                    }
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="EmployeeSelect">Выберите рабочего</label>
-                <select class="form-control" id="EmployeeSelect">
-                    @foreach (var temp in ViewBag.Employees)
-                    {
-                        <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
-                    }
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="TextareaKeywords">Ключевые слова</label>
-                <textarea class="form-control" id="TextareaKeywords" placeholder="Слова вводить через запятую"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="InputGooglePoz">Позиция в Google</label>
-                <input type="text" class="form-control" id="InputGooglePoz" placeholder="Позиция в Google">
-            </div>
-            <div class="form-group">
-                <label for="InputYandexPoz">Позиция в Yandex</label>
-                <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex">
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="OptimizImg">
-                <label class="custom-control-label" for="OptimizImg">Оптимизация изображений</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="OptimizText">
-                <label class="custom-control-label" for="OptimizText">Оптимизация текста</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="OptimizTag">
-                <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
-            </div>
+            <form id="ContractValidate">
+                <div class="form-group pt-3">
+                    <label for="InputProjectName">Название проекта</label>
+                    <input type="text" class="form-control" id="InputProjectName" placeholder="Название проекта" name="NameProject">
+                </div>
+                <div class="form-group">
+                    <label for="InputProjectDate">Дата заключения договора</label>
+                    <input type="date" class="form-control" id="InputProjectDate" placeholder="Дата">
+                </div>
+                <div class="form-group">
+                    <label for="InputProjectSite">Сайт для продвижения</label>
+                    <input type="text" class="form-control" id="InputProjectSite" placeholder="Сайт" name="SiteProject">
+                </div>
+                <div class="form-group">
+                    <label for="CompanySelect">Выберите компанию</label>
+                    <select class="form-control" id="CompanySelect">
+                        @foreach (var temp in ViewBag.Companies)
+                        {
+                            <option value="@temp.Id">@temp.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="EmployeeSelect">Выберите рабочего</label>
+                    <select class="form-control" id="EmployeeSelect">
+                        @foreach (var temp in ViewBag.Employees)
+                        {
+                            <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                        }
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="TextareaKeywords">Ключевые слова</label>
+                    <textarea class="form-control" id="TextareaKeywords" placeholder="Слова вводить через запятую" name="ProjectKeywords"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="InputGooglePoz">Позиция в Google</label>
+                    <input type="text" class="form-control" id="InputGooglePoz" placeholder="Позиция в Google" name="GooglePozValid">
+                </div>
+                <div class="form-group">
+                    <label for="InputYandexPoz">Позиция в Yandex</label>
+                    <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex" name="YandexPozValid">
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="OptimizImg">
+                    <label class="custom-control-label" for="OptimizImg">Оптимизация изображений</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="OptimizText">
+                    <label class="custom-control-label" for="OptimizText">Оптимизация текста</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="OptimizTag">
+                    <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
+                </div>
+                <br>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="AddContract">Добавить договор</button>
+            </form>
             <br>
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="AddContract">Добавить договор</button>
-            <br>
-            <div class="dropdown" style="text-align: right;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Экспорт
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="ToExcelContract('xlsx')">Excel</a>
-                    <a class="dropdown-item" onclick="ToHTMLContract('html')">HTML</a>
+            <div class="btn-group pb-3">
+                <div class="dropdown pr-3">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Изменить
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var item in (List<Contract>)ViewBag.Contracts)
+                        {
+                            <a class="dropdown-item" onclick="GetContractById(@item.Id)">@item.Name - @item.Company.Name</a>
+                        }
+                    </div>
+                </div>
+                <div class="dropdown" style="text-align: right;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Экспорт
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" onclick="ToExcelContract('xlsx')">Excel</a>
+                        <a class="dropdown-item" onclick="ToHTMLContract('html')">HTML</a>
+                    </div>
                 </div>
             </div>
-            <br>
             <div id="data-table-contracts">
                 <table class="table table-bordered text-center" style="font-size:12px;">
                     <tr style="background-color: rgba(156, 156, 156, 0.75); vertical-align:middle; text-align:center" class="align-middle">
@@ -99,8 +113,6 @@
                         <th rowspan="2">Google</th>
                         <th rowspan="2">Yandex</th>
                         <th colspan="3">Оптимизация</th>
-                        <th rowspan="2">Изменить</th>
-                        <th rowspan="2">Удалить</th>
                     </tr>
                     <tr style="background-color: rgba(156, 156, 156, 0.75)">
                         <td><b>Изображения</b></td>
@@ -117,55 +129,59 @@
                             <td>@item.Employee.FirstName @item.Employee.SecondName</td>
                             <td>@item.GooglePoz</td>
                             <td>@item.YandexPoz</td>
-                            <td>
-                                @(@item.OptimImg == true ? "Да" : "Нет")
-                            </td>
-                            <td>
-                                @(@item.OptimText == true ? "Да" : "Нет")
-                            </td>
-                            <td>
-                                @(@item.OptimTag == true ? "Да" : "Нет")
-                            </td>
-                            <td><button type="button" class="btn btn-primary" onclick="GetContractById(@item.Id)">Изменить</button></td>
-                            <td><button type="button" class="btn btn-secondary" onclick="DeleteContract(@item.Id)">Удалить</button></td>
+                            <td>@(@item.OptimImg == true ? "Да" : "Нет")</td>
+                            <td>@(@item.OptimText == true ? "Да" : "Нет")</td>
+                            <td>@(@item.OptimTag == true ? "Да" : "Нет")</td>
                         </tr>
                     }
                 </table>
             </div>
         </div>
         <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
-            <div class="form-group pt-3">
-                <label for="InputCompanyName">Название компании</label>
-                <input type="text" class="form-control" id="InputCompanyName" placeholder="Название компании">
-            </div>
-            <div class="form-group">
-                <label for="InputCompanyCountry">Страна</label>
-                <input type="text" class="form-control" id="InputCompanyCountry" placeholder="Страна">
-            </div>
-            <div class="form-group">
-                <label for="InputCompanyCity">Город</label>
-                <input type="text" class="form-control" id="InputCompanyCity" placeholder="Город">
-            </div>
-            <div class="form-group">
-                <label for="InputCompanyDirector">ФИО директора или ответственного лица</label>
-                <input type="text" class="form-control" id="InputCompanyDirector" placeholder="ФИО директора или ответственного лица">
-            </div>
-            <div class="form-group">
-                <label for="InputCompanyPhone">Номер телефона</label>
-                <input type="text" class="form-control" id="InputCompanyPhone" placeholder="Номер телефона">
-            </div>
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="AddCompany">Добавить компанию</button>
+            <form id="CompanyValidate">
+                <div class="form-group pt-3">
+                    <label for="InputCompanyName">Название компании</label>
+                    <input type="text" class="form-control" id="InputCompanyName" placeholder="Название компании" name="CompanyName">
+                </div>
+                <div class="form-group">
+                    <label for="InputCompanyCountry">Страна</label>
+                    <input type="text" class="form-control" id="InputCompanyCountry" placeholder="Страна" name="CompanyCountry">
+                </div>
+                <div class="form-group">
+                    <label for="InputCompanyCity">Город</label>
+                    <input type="text" class="form-control" id="InputCompanyCity" placeholder="Город" name="CompanyCity">
+                </div>
+                <div class="form-group">
+                    <label for="InputCompanyDirector">ФИО директора или ответственного лица</label>
+                    <input type="text" class="form-control" id="InputCompanyDirector" placeholder="ФИО директора или ответственного лица" name="CompanyDirector">
+                </div>
+                <div class="form-group">
+                    <label for="InputCompanyPhone">Номер телефона</label>
+                    <input type="text" class="form-control" id="InputCompanyPhone" placeholder="В формате '+7ХХХХХХХХХХ'" name="CompanyPhone">
+                </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="AddCompany">Добавить компанию</button>
+            </form>
             <br>
-            <div class="dropdown" style="text-align: right;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Экспорт
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="ToExcelCompany('xlsx')">Excel</a>
-                    <a class="dropdown-item" onclick="ToHTMLCompany('html')">HTML</a>
+            <div class="btn-group pb-3">
+                <div class="dropdown pr-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Изменить</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var item in (List<Company>)ViewBag.Companies)
+                        {
+                            <a class="dropdown-item" onclick="GetCompanyById(@item.Id)">@item.Name</a>
+                        }
+                    </div>
+                </div>
+                <div class="dropdown" style="text-align: right;">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Экспорт
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" onclick="ToExcelCompany('xlsx')">Excel</a>
+                        <a class="dropdown-item" onclick="ToHTMLCompany('html')">HTML</a>
+                    </div>
                 </div>
             </div>
-            <br>
             <div id="data-table-companies">
                 <table class="table table-bordered text-center">
                     <tr style="background-color: rgba(156, 156, 156, 0.75)">
@@ -174,10 +190,7 @@
                         <td>Город</td>
                         <td>ФИО</td>
                         <td>Номер телефона</td>
-                        <td>Изменить</td>
-                        <td>Удалить</td>
                     </tr>
-
                     @foreach (var item in (List<Company>)ViewBag.Companies)
                     {
                         <tr>
@@ -186,63 +199,71 @@
                             <td>@item.City</td>
                             <td>@item.LPR</td>
                             <td>@item.PhoneNumber</td>
-                            <td><button type="button" class="btn btn-primary" onclick="GetCompanyById(@item.Id)">Изменить</button></td>
-                            <td><button type="button" class="btn btn-secondary" onclick="DeleteCompany(@item.Id)">Удалить</button></td>
                         </tr>
                     }
                 </table>
             </div>
         </div>
         <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
-            <div class="form-group pt-3">
-                <label for="InputEmployeeFirstName">Имя рабочего</label>
-                <input type="text" class="form-control" id="InputEmployeeFirstName" placeholder="Имя">
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeePatronymic">Отчество рабочего</label>
-                <input type="text" class="form-control" id="InputEmployeePatronymic" placeholder="Отчество">
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeeSecondName">Фамилия рабочего</label>
-                <input type="text" class="form-control" id="InputEmployeeSecondName" placeholder="Фамилия">
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeeBirthday">Дата рождения</label>
-                <input type="date" class="form-control" id="InputEmployeeBirthday" placeholder="Дата рождения">
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeePosition">Должность</label>
-                <input type="text" class="form-control" id="InputEmployeePosition" placeholder="Должность">
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeeDepartament">Отдел</label>
-                <select class="custom-select" id="InputEmployeeDepartment">
-                    <option value="0">Администрация</option>
-                    <option value="1">Бухгалтерия</option>
-                    <option value="2">Разработка</option>
-                    <option value="3">Отдел маркетинга</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeePhone">Номер телефона</label>
-                <input type="text" class="form-control" id="InputEmployeePhone" placeholder="Номер телефона">
-            </div>
-            <div class="form-group">
-                <label for="InputEmployeeExperience">Стаж</label>
-                <input type="text" class="form-control" id="InputEmployeeExperience" placeholder="Стаж">
-            </div>
-            <button type="button" class="btn btn-primary btn-lg btn-block" id="AddEmployee">Добавить рабочего</button>
+            <form id="EmployeeValidate">
+                <div class="form-group pt-3">
+                    <label for="InputEmployeeFirstName">Имя рабочего</label>
+                    <input type="text" class="form-control" id="InputEmployeeFirstName" placeholder="Имя" name="EmployeeName">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeePatronymic">Отчество рабочего</label>
+                    <input type="text" class="form-control" id="InputEmployeePatronymic" placeholder="Отчество" name="EmployeePatronymic">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeeSecondName">Фамилия рабочего</label>
+                    <input type="text" class="form-control" id="InputEmployeeSecondName" placeholder="Фамилия" name="EmployeeSecondName">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeeBirthday">Дата рождения</label>
+                    <input type="date" class="form-control" id="InputEmployeeBirthday" placeholder="Дата рождения">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeePosition">Должность</label>
+                    <input type="text" class="form-control" id="InputEmployeePosition" placeholder="Должность" name="EmployeePosition">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeeDepartament">Отдел</label>
+                    <select class="custom-select" id="InputEmployeeDepartment">
+                        <option value="0">Администрация</option>
+                        <option value="1">Бухгалтерия</option>
+                        <option value="2">Разработка</option>
+                        <option value="3">Отдел маркетинга</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeePhone">Номер телефона</label>
+                    <input type="text" class="form-control" id="InputEmployeePhone" placeholder="В формате '+7XXXXXXXXXX'" name="EmployeePhone">
+                </div>
+                <div class="form-group">
+                    <label for="InputEmployeeExperience">Стаж</label>
+                    <input type="text" class="form-control" id="InputEmployeeExperience" placeholder="Лет" name="EmployeeExperience">
+                </div>
+                <button type="button" class="btn btn-primary btn-lg btn-block" id="AddEmployee">Добавить рабочего</button>
+            </form>
             <br>
-            <div class="dropdown" style="text-align: right;">
-                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Экспорт
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" onclick="ToExcelEmployee('xlsx')">Excel</a>
-                    <a class="dropdown-item" onclick="ToHTMLEmployee('html')">HTML</a>
+            <div class="btn-group pb-3">
+                <div class="dropdown pr-2">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Изменить</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        @foreach (var item in (List<Employee>)ViewBag.Employees)
+                        {
+                            <a class="dropdown-item" onclick="GetEmployeeById(@item.Id)">@item.FirstName @item.Patronymic @item.SecondName</a>
+                        }
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Экспорт</button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" onclick="ToExcelEmployee('xlsx')">Excel</a>
+                        <a class="dropdown-item" onclick="ToHTMLEmployee('html')">HTML</a>
+                    </div>
                 </div>
             </div>
-            <br>
             <div id="data-table-employees">
                 <table class="table table-bordered text-center">
                     <tr style="background-color: rgba(156, 156, 156, 0.75)">
@@ -252,8 +273,6 @@
                         <td>Отдел</td>
                         <td>Номер телефона</td>
                         <td>Стаж</td>
-                        <td>Изменить</td>
-                        <td>Удалить</td>
                     </tr>
                     @foreach (var item in (List<Employee>)ViewBag.Employees)
                     {
@@ -264,8 +283,6 @@
                             <td>@item.Department</td>
                             <td>@item.PhoneNumber</td>
                             <td>@item.Experience</td>
-                            <td><button type="button" class="btn btn-primary" onclick="GetEmployeeById(@item.Id)">Изменить</button></td>
-                            <td><button type="button" class="btn btn-secondary" onclick="DeleteEmployee(@item.Id)">Удалить</button></td>
                         </tr>
                     }
                 </table>
@@ -325,6 +342,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick='DeleteEmployee(document.getElementById("EmployeeId").value)'>Удалить</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" onclick="UpdateEmployeeModal()">Сохранить</button>
             </div>
@@ -369,6 +387,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick='DeleteCompany(document.getElementById("CompanyId").value)'>Удалить</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" onclick="UpdateCompanyModal()">Сохранить</button>
             </div>
@@ -447,6 +466,7 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick='DeleteContract(document.getElementById("ContractId").value)'>Удалить</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
                 <button type="button" class="btn btn-primary" onclick="UpdateContractModal()">Сохранить</button>
             </div>
@@ -455,12 +475,180 @@
 </div>
 
 <script>
-        // Table Companies
+    $(document).ready(function () {
+        // Company Validate
+        $("#CompanyValidate").validate({
+            rules: {
+                CompanyName: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 50
+                },
+                CompanyCountry: {
+                    minlength: 3,
+                    maxlength: 30
+                },
+                CompanyCity: {
+                    minlength: 3,
+                    maxlength: 20
+                },
+                CompanyDirector: {
+                    minlength: 3,
+                    maxlength: 70
+                },
+                CompanyPhone: {
+                    minlength: 12,
+                    maxlength: 12
+                },
+            },
+            messages: {
+                CompanyName: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 50",
+                },
+                CompanyCity: {
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 30",
+                },
+                CompanyCity: {
+                    minlength: "Поле должно быть минимум 4 символа",
+                    maxlength: "Максимальное число символов - 20",
+                },
+                CompanyDirector: {
+                    minlength: "Поле должно быть минимум 4 символа",
+                    maxlength: "Максимальное число символов - 70",
+                },
+                CompanyPhone: {
+                    minlength: "Поле должно быть минимум 12 символов",
+                    maxlength: "Максимальное число символов - 12",
+                }
+            }
+        });
+        // Employee Validate
+        $("#EmployeeValidate").validate({
+            rules: {
+                EmployeeName: {
+                    required: true,
+                    minlength: 5,
+                    maxlength: 15
+                },
+                EmployeePatronymic: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
+                },
+                EmployeeSecondName: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 20
+                },
+                EmployeePosition: {
+                    required: true,
+                    minlength: 2,
+                    maxlength: 20
+                },
+                EmployeePhone: {
+                    minlength: 12,
+                    maxlength: 12
+                },
+                EmployeeExperience: {
+                    digits: true
+                }
+            },
+            messages: {
+                EmployeeName: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 4 символа",
+                    maxlength: "Максимальное число символов - 15",
+                },
+                EmployeePatronymic: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 20",
+                },
+                EmployeeSecondName: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 20",
+                },
+                EmployeePosition: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 2 символа",
+                    maxlength: "Максимальное число символов - 20",
+                },
+                EmployeePhone: {
+                    minlength: "Поле должно быть минимум 12 символа",
+                    maxlength: "Максимальное число символов - 12",
+                },
+                EmployeeExperience: {
+                    digits: "Введите цифры",
+                }
+            }
+        });
+        // Contract Validate
+        $("#ContractValidate").validate({
+            rules: {
+                NameProject: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 30
+                },
+                SiteProject: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 40
+                },
+                ProjectKeywords: {
+                    minlength: 3,
+                    maxlength: 100
+                },
+                GooglePozValid: {
+                    digits: true,
+                    minlength: 1,
+                    maxlength: 3
+                },
+                YandexPozValid: {
+                    digits: true,
+                    minlength: 1,
+                    maxlength: 3
+                }
+            },
+            messages: {
+                NameProject: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 30",
+                },
+                SiteProject: {
+                    required: "Это поле обязательно для заполнения",
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 40",
+                },
+                ProjectKeywords: {
+                    minlength: "Поле должно быть минимум 3 символа",
+                    maxlength: "Максимальное число символов - 100",
+                },
+                GooglePozValid: {
+                    digits: "Введите цифры",
+                    minlength: "Поле должно быть минимум 1 символа",
+                    maxlength: "Максимальное число символов - 3",
+                },
+                YandexPozValid: {
+                    digits: "Введите цифры",
+                    minlength: "Поле должно быть минимум 1 символа",
+                    maxlength: "Максимальное число символов - 3",
+                }
+            }
+        });
+    });
+
+    // Table Companies
     $("#AddCompany").on("click", function (evt) {
         var data = new FormData();
         data.append("Name", $("#InputCompanyName").val());
-        data.append("Country", $("#InputCompanyCountry").val());
-        data.append("City", $("#InputCompanyCity").val());
+        data.append("Country", $("#InputCompanyCountry").val().replace(/\s/g, ''));
+        data.append("City", $("#InputCompanyCity").val().replace(/\s/g, ''));
         data.append("LPR", $("#InputCompanyDirector").val());
         data.append("PhoneNumber", $("#InputCompanyPhone").val());
         $.ajax({
@@ -522,8 +710,8 @@
         var data = new FormData();
         data.append("Id",  $("#CompanyId").val());
         data.append("Name", $("#EditCompanyName").val());
-        data.append("Country", $("#EditCompanyCountry").val());
-        data.append("City", $("#EditCompanyCity").val());
+        data.append("Country", $("#EditCompanyCountry").val().replace(/\s/g, ''));
+        data.append("City", $("#EditCompanyCity").val().replace(/\s/g, ''));
         data.append("LPR", $("#EditCompanyLPR").val());
         data.append("PhoneNumber", $("#EditCompanyPhone").val());
         $.ajax({
@@ -546,9 +734,9 @@
     // Table Employees
     $("#AddEmployee").on("click", function (evt) {
         var data = new FormData();
-        data.append("FirstName", $("#InputEmployeeFirstName").val());
-        data.append("Patronymic", $("#InputEmployeePatronymic").val());
-        data.append("SecondName", $("#InputEmployeeSecondName").val());
+        data.append("FirstName", $("#InputEmployeeFirstName").val().replace(/\s/g, ''));
+        data.append("Patronymic", $("#InputEmployeePatronymic").val().replace(/\s/g, ''));
+        data.append("SecondName", $("#InputEmployeeSecondName").val().replace(/\s/g, ''));
         data.append("Birthday", $("#InputEmployeeBirthday").val());
         data.append("Position", $("#InputEmployeePosition").val());
         data.append("Department", $("#InputEmployeeDepartment").val());
@@ -614,9 +802,9 @@
     function UpdateEmployeeModal() {
         var data = new FormData();
         data.append("Id",  $("#EmployeeId").val());
-        data.append("FirstName", $("#EditEmployeeFirstName").val());
-        data.append("Patronymic", $("#EditEmployeePatronymic").val());
-        data.append("SecondName", $("#EditEmployeeSecondName").val());
+        data.append("FirstName", $("#EditEmployeeFirstName").val().replace(/\s/g, ''));
+        data.append("Patronymic", $("#EditEmployeePatronymic").val().replace(/\s/g, ''));
+        data.append("SecondName", $("#EditEmployeeSecondName").val().replace(/\s/g, ''));
         data.append("Position", $("#EditEmployeePosition").val());
         data.append("Department", $("#EditEmployeeDepartment").val());
         data.append("PhoneNumber", $("#EditEmployeePhone").val());
@@ -643,7 +831,7 @@
         var data = new FormData();
         data.append("Name", $("#InputProjectName").val());
         data.append("Date", $("#InputProjectDate").val());
-        data.append("Url", $("#InputProjectSite").val());
+        data.append("Url", $("#InputProjectSite").val().replace(/\s/g, ''));
         data.append("CompanyId", $("#CompanySelect").val());
         data.append("EmployeeId", $("#EmployeeSelect").val());
         data.append("Keywords", $("#TextareaKeywords").val());
@@ -730,7 +918,7 @@
         data.append("Id",  $("#ContractId").val());
         data.append("Name", $("#EditContractName").val());
         data.append("Date", $("#EditCompanyDate").val());
-        data.append("Url", $("#EditCompanySite").val());
+        data.append("Url", $("#EditCompanySite").val().replace(/\s/g, ''));
         data.append("CompanyId", $("#EditCompanySelect").val());
         data.append("EmployeeId", $("#EditEmployeeSelect").val());
         data.append("Keywords", $("#EditContractKeywords").val());
