@@ -182,7 +182,7 @@
                     $(".result").append('<br>');
                     $(".result").append('<b>Траст: </b>' + data.trast);
                     $(".result").append('<br>');
-                    $(".result").append('<b>СПАМ: </b>' + data.spam);
+                    $(".result").append('<b>СПАМ: </b>' + CheckSpam(data.spam));
                     $(".result").append('<br>');
                     console.log("Осталось проверок - " + data.hostLimitsBalance);
                     toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта")
@@ -230,5 +230,17 @@
                 $('#loadImg').hide();
             }
         })
-    }
+    };
+
+    function CheckSpam(spam) {
+        if (spam == 101.00) {
+            return (spam + " <b>Невозможность расчета данных</b>");
+        }
+        else if (spam == 102.00) {
+            return (spam + " <b>Недостаточная изученность сайта</b>");
+        }
+        else {
+            return spam;
+        }
+    };
 </script>

@@ -319,6 +319,10 @@
                         <input type="text" class="form-control" id="EditEmployeeSecondName">
                     </div>
                     <div class="form-group">
+                        <label for="EditEmployeeBirthday" class="form-control-label">Дата рождения:</label>
+                        <input type="datetime" class="form-control" id="EditEmployeeBirthday" readonly>
+                    </div>
+                    <div class="form-group">
                         <label for="EditEmployeePosition" class="form-control-label">Должность:</label>
                         <input type="text" class="form-control" id="EditEmployeePosition">
                     </div>
@@ -789,6 +793,7 @@
                 $("#EditEmployeePatronymic").val(data.patronymic);
                 $("#EditEmployeeSecondName").val(data.secondName);
                 $("#EditEmployeePosition").val(data.position);
+                $("#EditEmployeeBirthday").val(data.birthday);
                 $("#EditEmployeeDepartment").val(data.department);
                 $("#EditEmployeePhone").val(data.phoneNumber);
                 $("#EditEmployeeExperience").val(data.experience);

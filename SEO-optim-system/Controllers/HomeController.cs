@@ -1,4 +1,4 @@
-﻿using AngleSharp;
+using AngleSharp;
 using AngleSharp.Network.Default;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,11 +9,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using HtmlAgilityPack;
+using System.Net;
 
 namespace SEO_optim_system.Controllers
 {
     public class HomeController : Controller
     {
+
         private seoContext DbContext;
         public HomeController(seoContext context)
         {
@@ -43,7 +46,6 @@ namespace SEO_optim_system.Controllers
         }
         public IActionResult Report()
         {
-            ViewBag.ABS = "fdsa";
             ViewBag.Companies = DbContext.Companies.ToList();
             ViewBag.Employees = DbContext.Employees.ToList();
             ViewBag.Contracts = DbContext.Contracts.Include(c => c.Company).Include(c => c.Employee).ToList();
@@ -348,7 +350,7 @@ namespace SEO_optim_system.Controllers
         {
             var adress = "http://e.megaindex.ru/analysis/" + url;
             var requester = new HttpRequester(adress);
-            requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*;q=0.8";
             requester.Headers["Accept-Charset"] = "utf-8";
             requester.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
             var configuration = Configuration.Default.WithDefaultLoader(requesters: new[] { requester });
@@ -360,7 +362,8 @@ namespace SEO_optim_system.Controllers
 
         public async Task<string> GetDescription(string url)
         {
-            var adress = "https://be1.ru/stat/" + url;
+            //var adress = "https://be1.ru/stat/" + url;
+            var adress = "http://e.megaindex.ru/analysis/" + url;
             var requester = new HttpRequester(adress);
             requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             requester.Headers["Accept-Charset"] = "utf-8";
@@ -368,6 +371,7 @@ namespace SEO_optim_system.Controllers
             var configuration = Configuration.Default.WithDefaultLoader(requesters: new[] { requester });
             var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader());
             var document = await context.OpenAsync(adress);
+            //var result = document.QuerySelector("#set_description").TextContent;
             var result = document.QuerySelector("#set_description").TextContent;
 
             return await Delete(result);
@@ -378,7 +382,7 @@ namespace SEO_optim_system.Controllers
             List<string> trtspm = new List<string>();
             var adress = "https://checktrust.ru/app.php?r=host/app/summary/basic&applicationKey=338bc2140502115cf718af016929edc6&host=" + url + "&parameterList=spam,trust";
             var requester = new HttpRequester(adress);
-            requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
+            requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*;q=0.8";
             requester.Headers["Accept-Charset"] = "utf-8";
             requester.Headers["User-Agent"] = "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.102 Safari/537.36";
             var configuration = Configuration.Default.WithDefaultLoader(requesters: new[] { requester });
