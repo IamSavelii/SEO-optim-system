@@ -18,6 +18,7 @@ namespace SEO_optim_system.Controllers
     {
 
         private seoContext DbContext;
+
         public HomeController(seoContext context)
         {
             DbContext = context;

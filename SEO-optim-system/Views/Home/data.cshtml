@@ -77,7 +77,7 @@
                     <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
                 </div>
                 <br>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="AddContract">Добавить договор</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="AddContract" value="submit">Добавить договор</button>
             </form>
             <br>
             <div class="btn-group pb-3">
@@ -157,9 +157,9 @@
                 </div>
                 <div class="form-group">
                     <label for="InputCompanyPhone">Номер телефона</label>
-                    <input type="text" class="form-control" id="InputCompanyPhone" placeholder="В формате '+7ХХХХХХХХХХ'" name="CompanyPhone">
+                    <input type="text" class="form-control phoneNumber" id="InputCompanyPhone" name="CompanyPhone">
                 </div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="AddCompany">Добавить компанию</button>
+                <button class="btn btn-primary btn-lg btn-block" id="AddCompany" type="submit" value="submit">Добавить компанию</button>
             </form>
             <br>
             <div class="btn-group pb-3">
@@ -237,13 +237,13 @@
                 </div>
                 <div class="form-group">
                     <label for="InputEmployeePhone">Номер телефона</label>
-                    <input type="text" class="form-control" id="InputEmployeePhone" placeholder="В формате '+7XXXXXXXXXX'" name="EmployeePhone">
+                    <input type="text" class="form-control phoneNumber" id="InputEmployeePhone" name="EmployeePhone">
                 </div>
                 <div class="form-group">
                     <label for="InputEmployeeExperience">Стаж</label>
                     <input type="text" class="form-control" id="InputEmployeeExperience" placeholder="Лет" name="EmployeeExperience">
                 </div>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="AddEmployee">Добавить рабочего</button>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" value="submit" id="AddEmployee">Добавить рабочего</button>
             </form>
             <br>
             <div class="btn-group pb-3">
@@ -337,7 +337,7 @@
                     </div>
                     <div class="form-group">
                         <label for="EditEmployeePhone" class="form-control-label">Номер телефона:</label>
-                        <input type="text" class="form-control" id="EditEmployeePhone">
+                        <input type="text" class="form-control phoneNumber" id="EditEmployeePhone">
                     </div>
                     <div class="form-group">
                         <label for="EditEmployeeExperience" class="form-control-label">Стаж:</label>
@@ -386,7 +386,7 @@
                     </div>
                     <div class="form-group">
                         <label for="EditCompanyPhone" class="form-control-label">Номер телефона:</label>
-                        <input type="text" class="form-control" id="EditCompanyPhone">
+                        <input type="text" class="form-control phoneNumber" id="EditCompanyPhone">
                     </div>
                 </form>
             </div>
@@ -480,8 +480,11 @@
 
 <script>
     $(document).ready(function () {
-        // Company Validate
-        $("#CompanyValidate").validate({
+        $('.phoneNumber').mask("+0 (000) 000-0000");
+    });
+
+    // Company Validate
+    $("#CompanyValidate").validate({
             rules: {
                 CompanyName: {
                     required: true,
@@ -499,11 +502,7 @@
                 CompanyDirector: {
                     minlength: 3,
                     maxlength: 70
-                },
-                CompanyPhone: {
-                    minlength: 12,
-                    maxlength: 12
-                },
+                }
             },
             messages: {
                 CompanyName: {
@@ -511,7 +510,7 @@
                     minlength: "Поле должно быть минимум 3 символа",
                     maxlength: "Максимальное число символов - 50",
                 },
-                CompanyCity: {
+                CompanyCountry: {
                     minlength: "Поле должно быть минимум 3 символа",
                     maxlength: "Максимальное число символов - 30",
                 },
@@ -522,133 +521,153 @@
                 CompanyDirector: {
                     minlength: "Поле должно быть минимум 4 символа",
                     maxlength: "Максимальное число символов - 70",
-                },
-                CompanyPhone: {
-                    minlength: "Поле должно быть минимум 12 символов",
-                    maxlength: "Максимальное число символов - 12",
                 }
-            }
+            },
+            submitHandler: function () {
+                toastr["success"]("Запись добавлена в БД");
+                AddCompany();
+            },
+            invalidHandler: function (event, validator) {
+                toastr["error"]("Ошибка");
+            },
+            errorPlacement: function ( error, element ) {
+	            error.addClass("text-danger");
+		        error.insertAfter(element.parent());
+		    }
         });
         // Employee Validate
-        $("#EmployeeValidate").validate({
-            rules: {
-                EmployeeName: {
-                    required: true,
-                    minlength: 5,
-                    maxlength: 15
-                },
-                EmployeePatronymic: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 20
-                },
-                EmployeeSecondName: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 20
-                },
-                EmployeePosition: {
-                    required: true,
-                    minlength: 2,
-                    maxlength: 20
-                },
-                EmployeePhone: {
-                    minlength: 12,
-                    maxlength: 12
-                },
-                EmployeeExperience: {
-                    digits: true
-                }
+    $("#EmployeeValidate").validate({
+        rules: {
+            EmployeeName: {
+                required: true,
+                minlength: 5,
+                maxlength: 15
             },
-            messages: {
-                EmployeeName: {
-                    required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 4 символа",
-                    maxlength: "Максимальное число символов - 15",
-                },
-                EmployeePatronymic: {
-                    required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 20",
-                },
-                EmployeeSecondName: {
-                    required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 20",
-                },
-                EmployeePosition: {
-                    required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 2 символа",
-                    maxlength: "Максимальное число символов - 20",
-                },
-                EmployeePhone: {
-                    minlength: "Поле должно быть минимум 12 символа",
-                    maxlength: "Максимальное число символов - 12",
-                },
-                EmployeeExperience: {
-                    digits: "Введите цифры",
-                }
-            }
-        });
-        // Contract Validate
-        $("#ContractValidate").validate({
-            rules: {
-                NameProject: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 30
-                },
-                SiteProject: {
-                    required: true,
-                    minlength: 3,
-                    maxlength: 40
-                },
-                ProjectKeywords: {
-                    minlength: 3,
-                    maxlength: 100
-                },
-                GooglePozValid: {
-                    digits: true,
-                    minlength: 1,
-                    maxlength: 3
-                },
-                YandexPozValid: {
-                    digits: true,
-                    minlength: 1,
-                    maxlength: 3
-                }
+            EmployeePatronymic: {
+                required: true,
+                minlength: 3,
+                maxlength: 20
             },
-            messages: {
-                NameProject: {
-                    required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 30",
-                },
-                SiteProject: {
-                    required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 40",
-                },
-                ProjectKeywords: {
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 100",
-                },
-                GooglePozValid: {
-                    digits: "Введите цифры",
-                    minlength: "Поле должно быть минимум 1 символа",
-                    maxlength: "Максимальное число символов - 3",
-                },
-                YandexPozValid: {
-                    digits: "Введите цифры",
-                    minlength: "Поле должно быть минимум 1 символа",
-                    maxlength: "Максимальное число символов - 3",
-                }
+            EmployeeSecondName: {
+                required: true,
+                minlength: 3,
+                maxlength: 20
+            },
+            EmployeePosition: {
+                required: true,
+                minlength: 2,
+                maxlength: 20
+            },
+            EmployeeExperience: {
+                digits: true
             }
-        });
+        },
+        messages: {
+            EmployeeName: {
+                required: "Это поле обязательно для заполнения",
+                minlength: "Поле должно быть минимум 4 символа",
+                maxlength: "Максимальное число символов - 15",
+            },
+            EmployeePatronymic: {
+                required: "Это поле обязательно для заполнения",
+                minlength: "Поле должно быть минимум 3 символа",
+                maxlength: "Максимальное число символов - 20",
+            },
+            EmployeeSecondName: {
+                required: "Это поле обязательно для заполнения",
+                minlength: "Поле должно быть минимум 3 символа",
+                maxlength: "Максимальное число символов - 20",
+            },
+            EmployeePosition: {
+                required: "Это поле обязательно для заполнения",
+                minlength: "Поле должно быть минимум 2 символа",
+                maxlength: "Максимальное число символов - 20",
+            },
+            EmployeeExperience: {
+                digits: "Введите цифры",
+            }
+        },
+        submitHandler: function () {
+            toastr["success"]("Запись добавлена в БД");
+            AddEmployee();
+        },
+        invalidHandler: function (event, validator) {
+            toastr["error"]("Ошибка");
+        },
+        errorPlacement: function ( error, element ) {
+	        error.addClass("text-danger");
+		    error.insertAfter(element.parent());
+        }
     });
+        // Contract Validate
+    $("#ContractValidate").validate({
+        rules: {
+            NameProject: {
+                required: true,
+                minlength: 3,
+                maxlength: 30
+            },
+            SiteProject: {
+                required: true,
+                minlength: 3,
+                maxlength: 40
+            },
+            ProjectKeywords: {
+                minlength: 3,
+                maxlength: 100
+            },
+            GooglePozValid: {
+                digits: true,
+                minlength: 1,
+                maxlength: 3
+            },
+            YandexPozValid: {
+                digits: true,
+                minlength: 1,
+                maxlength: 3
+            }
+        },
+        messages: {
+            NameProject: {
+                required: "Это поле обязательно для заполнения",
+                minlength: "Поле должно быть минимум 3 символа",
+                maxlength: "Максимальное число символов - 30",
+            },
+            SiteProject: {
+                required: "Это поле обязательно для заполнения",
+                minlength: "Поле должно быть минимум 3 символа",
+                maxlength: "Максимальное число символов - 40",
+            },
+            ProjectKeywords: {
+                minlength: "Поле должно быть минимум 3 символа",
+                maxlength: "Максимальное число символов - 100",
+            },
+            GooglePozValid: {
+                digits: "Введите цифры",
+                minlength: "Поле должно быть минимум 1 символа",
+                maxlength: "Максимальное число символов - 3",
+            },
+            YandexPozValid: {
+                digits: "Введите цифры",
+                minlength: "Поле должно быть минимум 1 символа",
+                maxlength: "Максимальное число символов - 3",
+            }
+        },
+        submitHandler: function () {
+            toastr["success"]("Запись добавлена в БД");
+            AddContract();
+        },
+        invalidHandler: function (event, validator) {
+            toastr["error"]("Ошибка");
+        },
+        errorPlacement: function ( error, element ) {
+	        error.addClass("text-danger");
+		    error.insertAfter(element.parent());
+        }
+        });
 
     // Table Companies
-    $("#AddCompany").on("click", function (evt) {
+    function AddCompany() {
         var data = new FormData();
         data.append("Name", $("#InputCompanyName").val());
         data.append("Country", $("#InputCompanyCountry").val().replace(/\s/g, ''));
@@ -669,7 +688,7 @@
                 toastr["error"](request)
             },
         });
-     });
+    };
 
     function DeleteCompany(id){
         $.ajax({
@@ -736,7 +755,7 @@
     };
 
     // Table Employees
-    $("#AddEmployee").on("click", function (evt) {
+    function AddEmployee() {
         var data = new FormData();
         data.append("FirstName", $("#InputEmployeeFirstName").val().replace(/\s/g, ''));
         data.append("Patronymic", $("#InputEmployeePatronymic").val().replace(/\s/g, ''));
@@ -753,14 +772,13 @@
             processData: false,
             data: data,
             success: function (data) {
-                toastr["success"]("Запись добавлена в БД");
                 setTimeout(location.reload(), 3000);
             },
             error: function (request) {
                 toastr["error"](request)
             },
         });
-     });
+     };
 
     function DeleteEmployee(id){
         $.ajax({
@@ -832,7 +850,7 @@
     };
 
     // Table Contract
-    $("#AddContract").on("click", function (evt) {
+    function AddContract() {
         var data = new FormData();
         data.append("Name", $("#InputProjectName").val());
         data.append("Date", $("#InputProjectDate").val());
@@ -852,14 +870,13 @@
             processData: false,
             data: data,
             success: function (data) {
-                toastr["success"]("Запись добавлена в БД");
                 setTimeout(location.reload(), 3000);
             },
             error: function (request) {
                 toastr["error"](request)
             },
         });
-    });
+    };
 
     function DeleteContract(id){
         $.ajax({
@@ -998,5 +1015,5 @@
 	return dl ?
 		XLSX.write(wb, {bookType:type, bookSST:true, type: 'base64'}) :
 		XLSX.writeFile(wb, fn || ('Contracts.' + (type || 'html')));
-        };
+    };
 </script>
