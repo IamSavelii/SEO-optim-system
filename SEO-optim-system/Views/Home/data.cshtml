@@ -507,20 +507,20 @@
             messages: {
                 CompanyName: {
                     required: "Это поле обязательно для заполнения",
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 50",
+                    minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                    maxlength: jQuery.validator.format("Максимальное число символов - {0}")
                 },
                 CompanyCountry: {
-                    minlength: "Поле должно быть минимум 3 символа",
-                    maxlength: "Максимальное число символов - 30",
+                    minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                    maxlength: jQuery.validator.format("Максимальное число символов - {0}")
                 },
                 CompanyCity: {
-                    minlength: "Поле должно быть минимум 4 символа",
-                    maxlength: "Максимальное число символов - 20",
+                    minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                    maxlength: jQuery.validator.format("Максимальное число символов - {0}")
                 },
                 CompanyDirector: {
-                    minlength: "Поле должно быть минимум 4 символа",
-                    maxlength: "Максимальное число символов - 70",
+                    minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                    maxlength: jQuery.validator.format("Максимальное число символов - {0}")
                 }
             },
             submitHandler: function () {
@@ -540,7 +540,7 @@
         rules: {
             EmployeeName: {
                 required: true,
-                minlength: 5,
+                minlength: 3,
                 maxlength: 15
             },
             EmployeePatronymic: {
@@ -565,26 +565,26 @@
         messages: {
             EmployeeName: {
                 required: "Это поле обязательно для заполнения",
-                minlength: "Поле должно быть минимум 4 символа",
-                maxlength: "Максимальное число символов - 15",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             EmployeePatronymic: {
                 required: "Это поле обязательно для заполнения",
-                minlength: "Поле должно быть минимум 3 символа",
-                maxlength: "Максимальное число символов - 20",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             EmployeeSecondName: {
                 required: "Это поле обязательно для заполнения",
-                minlength: "Поле должно быть минимум 3 символа",
-                maxlength: "Максимальное число символов - 20",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             EmployeePosition: {
                 required: "Это поле обязательно для заполнения",
-                minlength: "Поле должно быть минимум 2 символа",
-                maxlength: "Максимальное число символов - 20",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             EmployeeExperience: {
-                digits: "Введите цифры",
+                digits: "Введите цифры"
             }
         },
         submitHandler: function () {
@@ -630,27 +630,27 @@
         messages: {
             NameProject: {
                 required: "Это поле обязательно для заполнения",
-                minlength: "Поле должно быть минимум 3 символа",
-                maxlength: "Максимальное число символов - 30",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             SiteProject: {
                 required: "Это поле обязательно для заполнения",
-                minlength: "Поле должно быть минимум 3 символа",
-                maxlength: "Максимальное число символов - 40",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             ProjectKeywords: {
-                minlength: "Поле должно быть минимум 3 символа",
-                maxlength: "Максимальное число символов - 100",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             GooglePozValid: {
                 digits: "Введите цифры",
-                minlength: "Поле должно быть минимум 1 символа",
-                maxlength: "Максимальное число символов - 3",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             },
             YandexPozValid: {
                 digits: "Введите цифры",
-                minlength: "Поле должно быть минимум 1 символа",
-                maxlength: "Максимальное число символов - 3",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             }
         },
         submitHandler: function () {

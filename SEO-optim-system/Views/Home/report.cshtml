@@ -101,8 +101,8 @@
         messages: {
             textareavalid: {
                 required: "Это поле является обязательным",
-                minlength: "Поле должно быть минимум 3 символа",
-                maxlength: "Максимальное число символов - 100"
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
             }
         },
         submitHandler: function () {
