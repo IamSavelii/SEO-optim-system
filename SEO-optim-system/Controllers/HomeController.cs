@@ -9,8 +9,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using HtmlAgilityPack;
-using System.Net;
 
 namespace SEO_optim_system.Controllers
 {

@@ -19,7 +19,7 @@
         </div>
         <div class="form-group">
             <label for="InputDate">Дата создания отчёта</label>
-            <input type="datetime-local" class="form-control" id="InputDate" placeholder="Дата">
+            <input type="datetime-local" class="form-control    " id="InputDate" placeholder="Дата">
         </div>
         <div class="form-group">
             <label for="EmployeeSelect">Выберите рабочего</label>
@@ -90,7 +90,7 @@
 </div>
 
 <script>
-    var validator = $("#ReportValidate").validate({
+    $("#ReportValidate").validate({
         rules: {
             textareavalid: {
                 required: true,
