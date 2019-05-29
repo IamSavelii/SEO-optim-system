@@ -90,10 +90,14 @@ namespace SEO_optim_system.Migrations
 
                     b.Property<int>("Department");
 
+                    b.Property<string>("Email");
+
                     b.Property<int>("Experience");
 
                     b.Property<string>("FirstName")
                         .IsRequired();
+
+                    b.Property<string>("Password");
 
                     b.Property<string>("Patronymic")
                         .IsRequired();

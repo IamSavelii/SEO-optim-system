@@ -9,9 +9,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SEO_optim_system.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
 
@@ -21,6 +23,7 @@ namespace SEO_optim_system.Controllers
         {
             DbContext = context;
         }
+
         public IActionResult Index()
         {
             return View();
