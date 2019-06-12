@@ -8,6 +8,8 @@ using SEO_optim_system.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+// TODO: Починить выбор департамента в регистрации
+
 namespace SEO_optim_system.Controllers
 {
     public class AccountController : Controller
@@ -17,11 +19,13 @@ namespace SEO_optim_system.Controllers
         {
             db = context;
         }
+
         [HttpGet]
         public IActionResult Login()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginModel model)
@@ -39,11 +43,13 @@ namespace SEO_optim_system.Controllers
             }
             return View(model);
         }
+
         [HttpGet]
         public IActionResult Register()
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterModel model)
@@ -54,13 +60,15 @@ namespace SEO_optim_system.Controllers
                 if (user == null)
                 {
                     // добавляем пользователя в бд
-                    db.Employees.Add(new Employee {
+                    db.Employees.Add(new Employee
+                    {
                         FirstName = model.FirstName,
                         Patronymic = model.Patronymic,
                         SecondName = model.SecondName,
                         Position = model.Position,
                         PhoneNumber = model.PhoneNumber,
                         Experience = model.Experience,
+                        //Department = model.Department,
                         Birthday = model.Birthday,
                         Email = model.Email,
                         Password = model.Password

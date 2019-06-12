@@ -4,74 +4,170 @@
 }
 @model SEO_optim_system.ViewModel.RegisterModel
 
-<h2 class="mt-3">Регистрация</h2>
+<div class="card mt-5 col-md-8 justify-content-center">
+    <article class="card-body">
+        <h4 class="card-title mb-2 mt-1 text-center">Регистрация</h4>
+        <form asp-action="Register" asp-controller="Account" asp-anti-forgery="true" class="p-3 mt-3" id="RegistrValidate">
+            <div class="validation" asp-validation-summary="ModelOnly" />
+            <div class="">
+                <div class="mb-4">
+                    <div class="mb-2">
+                        <label>Фамилия*</label>
+                        <input type="text" class="form-control" placeholder="Фамилия" asp-for="SecondName" autocomplete="off" name="SecondName">
+                    </div>
+                    <div class="mb-2">
+                        <label>Имя*</label>
+                        <input type="text" class="form-control" placeholder="Имя" asp-for="FirstName" autocomplete="off" name="FirstName">
+                    </div>
+                    <div class="mb-2">
+                        <label>Отчество*</label>
+                        <input type="text" class="form-control" placeholder="Отчество" asp-for="Patronymic" autocomplete="off" name="Patronymic">
+                    </div>
+                    <div class="mb-2">
+                        <label>Должность*</label>
+                        <input type="text" class="form-control" placeholder="Должность" asp-for="Position" autocomplete="off" name="Position">
+                    </div>
+                    <div class="mb-2">
+                        <label for="InputEmployeeDepartament">Отдел*</label>
+                        <select class="custom-select" id="InputEmployeeDepartment" asp-for="Department">
+                            <option value="0">Администрация</option>
+                            <option value="1">Бухгалтерия</option>
+                            <option value="2">Разработка</option>
+                            <option value="3">Отдел маркетинга</option>
+                        </select>
+                    </div>
+                    <div class="mb-2">
+                        <label>Номер телефона</label>
+                        <input type="text" class="form-control phoneNumber" placeholder="Номер телефона" asp-for="PhoneNumber" autocomplete="off">
+                    </div>
+                    <div class="mb-2">
+                        <label>Опыт работы, лет</label>
+                        <input type="text" class="form-control" placeholder="Опыт работы" asp-for="Experience" autocomplete="off" name="Experience">
+                    </div>
+                    <div class="mb-2">
+                        <label>Дата рождения</label>
+                        <input type="date" class="form-control" placeholder="Дата рождения" asp-for="Birthday">
+                    </div>
+                    <div>
+                        <label asp-for="Email">Введите Email</label><br />
+                        <input type="text" class="form-control" asp-for="Email" autocomplete="new-password" placeholder="Email" name="email"/>
+                        <span asp-validation-for="Email" />
+                    </div>
+                    <div>
+                        <label asp-for="Password">Введите пароль</label><br />
+                        <input asp-for="Password" class="form-control" autocomplete="new-password" placeholder="Пароль" name="pswrd" id="pswrd"/>
+                        <span asp-validation-for="Password" />
+                    </div>
+                    <div>
+                        <label asp-for="ConfirmPassword">Повторите пароль</label><br />
+                        <input asp-for="ConfirmPassword" class="form-control" placeholder="Повтор пароль" name="RepeatPassword"/>
+                        <span asp-validation-for="ConfirmPassword" />
+                    </div>
+                    <div class="mt-3 mb-3 text-center">
+                        <input type="submit" class="btn btn-primary text-center" value="Регистрация" />
+                    </div>
+                </div>
+            </div>
+            <p class="text-center">
+                Поля, отмеченные * являются обязательными к заполнению
+            </p>
+            <p class="text-center">
+                Регистрируясь вы соглашаетесь
+                <a href="" target="_blank">с условием обслуживания</a>
+            </p>
+        </form>
+    </article>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.phoneNumber').mask("+0 (000) 000-0000");
+    });
 
-<form asp-action="Register" asp-controller="Account" asp-anti-forgery="true" class=" border border-light p-3 col-md-6  mt-3 mb-5">
-    <div class="validation" asp-validation-summary="ModelOnly" />
-    <div>
-        <div class="mb-4 ">
-            <div class="mb-2">
-                <label>Фамилия*</label>
-                <input type="text" class="form-control" placeholder="Фамилия" asp-for="SecondName">
-            </div>
-            <div class="mb-2">
-                <label>Имя*</label>
-                <input type="text" class="form-control" placeholder="Имя" asp-for="FirstName">
-            </div>
-            <div class="mb-2">
-                <label>Отчество*</label>
-                <input type="text" class="form-control" placeholder="Отчество" asp-for="Patronymic">
-            </div>
-            <div class="mb-2">
-                <label>Должность*</label>
-                <input type="text" class="form-control" placeholder="Должность" asp-for="Position">
-            </div>
-            <div class="mb-2">
-                <label for="InputEmployeeDepartament">Отдел*</label>
-                <select class="custom-select" id="InputEmployeeDepartment">
-                    <option value="0">Администрация</option>
-                    <option value="1">Бухгалтерия</option>
-                    <option value="2">Разработка</option>
-                    <option value="3">Отдел маркетинга</option>
-                </select>
-            </div>
-            <div class="mb-2">
-                <label>Номер телефона</label>
-                <input type="text" class="form-control" placeholder="Номер телефона" asp-for="PhoneNumber">
-            </div>
-            <div class="mb-2">
-                <label>Опыт работы, лет</label>
-                <input type="text" class="form-control" placeholder="Опыт работы" asp-for="Experience">
-            </div>
-            <div class="mb-2">
-                <label>Дата рождения</label>
-                <input type="date" class="form-control" placeholder="Дата рождения" asp-for="Birthday">
-            </div>
-        </div>
-        <div>
-            <label asp-for="Email">Введите Email</label><br />
-            <input type="text" class="form-control" asp-for="Email" />
-            <span asp-validation-for="Email" />
-        </div>
-        <div>
-            <label asp-for="Password">Введите пароль</label><br />
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" />
-        </div>
-        <div>
-            <label asp-for="ConfirmPassword">Повторите пароль</label><br />
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" />
-        </div>
-        <div class="mt-3 mb-3">
-            <input type="submit" class="btn btn-primary" value="Регистрация" />
-        </div>
-    </div>
-    <p>
-        Поля, отмеченные * являются обязательными к заполнению
-    </p>
-    <p>
-        Регистрируясь вы соглашаетесь
-        <a href="" target="_blank">с условием обслуживания</a>
-    </p>
-</form>
+    $("#RegistrValidate").validate({
+        rules: {
+            FirstName: {
+                required: true,
+                minlength: 3,
+                maxlength: 15
+            },
+            Patronymic: {
+                required: true,
+                minlength: 3,
+                maxlength: 20
+            },
+            SecondName: {
+                required: true,
+                minlength: 3,
+                maxlength: 20
+            },
+            Position: {
+                required: true,
+                minlength: 2,
+                maxlength: 20
+            },
+            Experience: {
+                digits: true
+            },
+            email: {
+                required: true,
+                minlength: 3,
+                maxlength: 100,
+                email: true
+             },
+            pswrd: {
+                required: true,
+                minlength: 6,
+                maxlength: 30
+             },
+            RepeatPassword: {
+                 equalTo: "#pswrd"
+            }
+        },
+        messages: {
+            FirstName: {
+                required: "Это поле обязательно для заполнения",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
+            },
+            Patronymic: {
+                required: "Это поле обязательно для заполнения",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
+            },
+            SecondName: {
+                required: "Это поле обязательно для заполнения",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
+            },
+            Position: {
+                required: "Это поле обязательно для заполнения",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
+            },
+            Experience: {
+                digits: "Введите цифры"
+            },
+            email: {
+                required: "Это поле является обязательным",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}"),
+                email: "Укажите емайл адрес"
+            },
+            pswrd: {
+                required: "Это поле является обязательным",
+                minlength: jQuery.validator.format("Поле должно быть минимум {0} символа"),
+                maxlength: jQuery.validator.format("Максимальное число символов - {0}")
+            },
+            RepeatPassword: {
+                equalTo: "Пароли не сходятся"
+            }
+        },
+        invalidHandler: function (event, validator) {
+            toastr["error"]("Ошибка");
+        },
+        errorPlacement: function ( error, element ) {
+	        error.addClass("text-danger");
+		    error.insertAfter(element.parent());
+        }
+    });
+</script>

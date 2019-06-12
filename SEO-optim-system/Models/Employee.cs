@@ -22,7 +22,9 @@ namespace SEO_optim_system.Models
         [Required]
         public AllDepartament Department { get; set; }
         public string PhoneNumber { get; set; }
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string Password { get; set; }
         public int Experience { get; set; }
         public DateTime Birthday { get; set; }

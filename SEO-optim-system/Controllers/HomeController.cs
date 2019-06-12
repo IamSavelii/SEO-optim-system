@@ -23,12 +23,13 @@ namespace SEO_optim_system.Controllers
         {
             DbContext = context;
         }
-
+        
         public IActionResult Index()
         {
             return View();
         }
 
+        [AllowAnonymous]
         public IActionResult About()
         {
             return View();

@@ -180,7 +180,7 @@
                     $(".result").append('<br>');
                     $(".result").append('<b>ИКС: </b>' + data.sqi);
                     $(".result").append('<br>');
-                    $(".result").append('<b>Траст: </b>' + data.trast);
+                    $(".result").append('<b>Траст: </b>' + CheckTrast(data.trast));
                     $(".result").append('<br>');
                     $(".result").append('<b>СПАМ: </b>' + CheckSpam(data.spam));
                     $(".result").append('<br>');
@@ -233,14 +233,39 @@
     };
 
     function CheckSpam(spam) {
-        if (spam == 101.00) {
-            return (spam + " <b>Невозможность расчета данных</b>");
+        if (spam < 7.00) {
+            return ('<span class="text-success"> ' + spam + ' </span>');
+        }
+        else if (spam < 12.00) {
+            return ('<span class="text-warning"> ' + spam + ' </span>');
+        }
+        else if (spam >= 12.00 && spam < 100) {
+            return ('<span class="text-danger"> ' + spam + ' </span>');
+        }
+        else if (spam == 101.00) {
+            return (spam + '<span class="text-danger"> Невозможность расчета данных </span>');
         }
         else if (spam == 102.00) {
-            return (spam + " <b>Недостаточная изученность сайта</b>");
+            return (spam + '<span class="text-danger"> Недостаточная изученность сайта </span>');
         }
         else {
             return spam;
         }
+        };
+
+    function CheckTrast(trast) {
+        if (trast <= 30) {
+            return ('<span class="text-danger"> ' + trast + ' </span>');
+        }
+        else if (trast > 31 && trast < 50) {
+            return ('<span class="text-warning"> ' + trast + ' </span>');
+        }
+        else if (trast > 50) {
+            return ('<span class="text-success"> ' + trast + ' </span>');
+        }
+        else {
+            return trast;
+        }
     };
+
 </script>
