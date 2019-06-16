@@ -19,22 +19,28 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css" rel="stylesheet" />
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" asp-controller="Home" asp-action="index">SEO-продвижение</a>
-            <ul class="navbar-nav px-3">
-                <li>
-            
-                </li>
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" asp-controller="Account" asp-action="Logout">Выход</a>
-                </li>
-            </ul>
-        </nav>
-    </header>
+    @if (ViewBag.ControllerName != "account")
+    {
+        <header>
+            <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" asp-controller="Home" asp-action="index">SEO-продвижение</a>
+                <ul class="navbar-nav px-3">
+                    <li>
+
+                    </li>
+                    <li class="nav-item text-nowrap">
+                        <a class="nav-link" asp-controller="Account" asp-action="Logout">Выход</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+    }
     <div class="container">
         <div class="row">
-            <partial name="sidebar" />
+            @if (ViewBag.ControllerName != "account")
+            {   
+                <partial name="sidebar" />
+            }
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
                 @RenderBody()
             </main>
