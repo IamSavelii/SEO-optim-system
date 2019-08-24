@@ -2,17 +2,16 @@
     ViewData["Title"] = "Стартовая страница";
     ViewData["Description"] = "Информационная система для SEO-анализа сайтов";
 }
-
-<div class="p-3 text-center">
-    <h1>Здравствуйте, привествуем Вас в Информационной системе</h1>
-    <br>
-    <br><br>
-    <div class="container font-weight-bold" id="result" style="font-size: 26px">
-
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="p-3 text-center">
+        <h1>Здравствуйте, привествуем Вас в Информационной системе</h1>
+        <br>
+        <br><br>
+        <div class="container font-weight-bold" id="result" style="font-size: 26px">
+        </div>
+        <br>
     </div>
-    <br>
-
-</div>
+</main>
 
 <script>
     function datetime() {
@@ -34,6 +33,5 @@
             z.innerHTML = "Сейчас" + "<br>" + date + "<br>" + time;
         }, 1000);
     }
-
     datetime();
 </script>

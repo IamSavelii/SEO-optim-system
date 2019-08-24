@@ -39,7 +39,11 @@ namespace SEO_optim_system.Controllers
 
                     return RedirectToAction("Index", "Home");
                 }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                else
+                {
+                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                    ViewBag.Error = "Некорректные логин и(или) пароль";
+                }
             }
             return View(model);
         }

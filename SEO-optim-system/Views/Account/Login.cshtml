@@ -3,34 +3,61 @@
     ViewData["Description"] = "Авторизация в информационную систему для SEO-анализа сайтов";
 }
 @model SEO_optim_system.ViewModel.LoginModel
+@*<div class="card col-md-6 align-items-center">
+        <article class="card-body w-100">
+            <a asp-action="Register" asp-controller="Account" class="float-right btn btn-outline-primary">Регистрация</a>
+            <h4 class="card-title mb-3 mt-1">Вход на сайт</h4>
+            <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" class="form-signin" id="LoginValidate">
+                <div class="validation" asp-validation-summary="ModelOnly" />
+                <div class="">
+                    <div class="form-group">
+                        <label asp-for="Email">Введите Email</label>
+                        <input type="text" asp-for="Email" class="form-control" placeholder="Email" name="email" autocomplete="off"/>
+                        <span asp-validation-for="Email" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password">Введите пароль</label>
+                        <input asp-for="Password" class="form-control" placeholder="******" />
+                        <span asp-validation-for="Password" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Войти" class="btn btn-primary" />
+                    </div>
+                </div>
+            </form>
+        </article>
+    </div>*@
 
-<div class="card col-6  ">
-    <article class="card-body w-100">
-        <a asp-action="Register" asp-controller="Account" class="float-right btn btn-outline-primary">Регистрация</a>
-        <h4 class="card-title mb-3 mt-1">Вход на сайт</h4>
-        <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" class="form-signin" id="LoginValidate">
-            <div class="validation" asp-validation-summary="ModelOnly" />
-            <div class="">
-                <div class="form-group">
-                    <label asp-for="Email">Введите Email</label>
-                    <input type="text" asp-for="Email" class="form-control" placeholder="Email" name="email" autocomplete="off"/>
-                    <span asp-validation-for="Email" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password">Введите пароль</label>
-                    <input asp-for="Password" class="form-control" placeholder="******" />
-                    <span asp-validation-for="Password" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Войти" class="btn btn-primary" />
-                </div>
-            </div>
-        </form>
-    </article>
+<div class="col-xl-5 col-lg-6 col-md-10 col-sm-12 mx-auto mt-lg-5">
+    <div class="card">
+        <div class="card-body">
+            <article class="card-body w-100">
+                <a asp-action="Register" asp-controller="Account" class="float-right btn btn-outline-primary">Регистрация</a>
+                <h4 class="card-title mb-3 mt-1">Вход на сайт</h4>
+                <form asp-action="Login" asp-controller="Account" asp-anti-forgery="true" class="form-signin" id="LoginValidate">
+                    <div class="validation" asp-validation-summary="ModelOnly" />
+                    <div class="">
+                        <div class="form-group">
+                            <label asp-for="Email">Введите Email</label>
+                            <input type="text" asp-for="Email" class="form-control" placeholder="Email" name="email" autocomplete="off" />
+                            <span asp-validation-for="Email" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password">Введите пароль</label>
+                            <input asp-for="Password" class="form-control" placeholder="******" />
+                            <span asp-validation-for="Password" />
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Войти" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </form>
+            </article>
+        </div>
+    </div>
 </div>
-
 <script>
- $("#LoginValidate").validate({
+    $("#LoginValidate").validate({
         rules: {
             email: {
                 required: true,
@@ -50,9 +77,9 @@
         invalidHandler: function (event, validator) {
             toastr["error"]("Ошибка");
         },
-        errorPlacement: function ( error, element ) {
-	        error.addClass("text-danger");
-		    error.insertAfter(element.parent());
-		}
+        errorPlacement: function (error, element) {
+            error.addClass("text-danger");
+            error.insertAfter(element.parent());
+        }
     });
 </script>

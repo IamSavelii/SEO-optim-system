@@ -2,92 +2,93 @@
     ViewData["Title"] = "Отчёты";
     ViewData["Description"] = "Страница создания отчётов";
 }
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Создать отчёт</h1>
-</div>
-<div class="container">
-    <form id="ReportValidate" method="post">
-        <div class="form-group">
-            <label for="ContractSelect">Выберите договор</label>
-            <select class="form-control" id="ContractSelect">
-                @foreach (var temp in ViewBag.Contracts)
-                {
-                    <option value="@temp.Id">@temp.Name - @temp.Company.Name</option>
-                }
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="InputDate">Дата создания отчёта</label>
-            <input type="datetime-local" class="form-control    " id="InputDate" placeholder="Дата">
-        </div>
-        <div class="form-group">
-            <label for="EmployeeSelect">Выберите рабочего</label>
-            <select class="form-control" id="EmployeeSelect">
-                @foreach (var temp in ViewBag.Employees)
-                {
-                    <option value="@temp.Id">@temp.FirstName @temp.Patronymic @temp.SecondName</option>
-                }
-            </select>
-        </div>
-        <div class="mb-3">
-            <label for="TextareaActivity">Выполненые мероприятия</label>
-            <textarea class="form-control" id="TextareaActivity" name="textareavalid"></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block pb-3" value="Submit">Создать отчёт</button>
-    </form>
-</div>
-
-<div class="modal" tabindex="-1" role="dialog" id="ReportModal">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="DateReport"></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Создать отчёт</h1>
+    </div>
+    <div class="container">
+        <form id="ReportValidate" method="post">
+            <div class="form-group">
+                <label for="ContractSelect">Выберите договор</label>
+                <select class="form-control" id="ContractSelect">
+                    @foreach (var temp in ViewBag.Contracts)
+                    {
+                        <option value="@temp.Id">@temp.Name - @temp.Company.Name</option>
+                    }
+                </select>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="ReportId">Id:</label>
-                        <input type="text" class="form-control" id="ReportId" readonly />
-                    </div>
-                    <div class="form-group">
-                        <label for="EditContractSelect">Выберите договор</label>
-                        <select class="form-control" id="EditContractSelect" readonly>
-                            @foreach (var temp in ViewBag.Contracts)
-                            {
-                                <option value="@temp.Id">@temp.Name - @temp.Company.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="EditDate">Дата создания отчёта</label>
-                        <input type="datetime-local" class="form-control" id="EditDate" placeholder="Дата" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="EditEmployeeSelect">Выберите рабочего</label>
-                        <select class="form-control" id="EditEmployeeSelect" readonly>
-                            @foreach (var temp in ViewBag.Employees)
-                            {
-                                <option value="@temp.Id">@temp.FirstName @temp.Patronymic @temp.SecondName</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label for="EditActivity">Выполненые мероприятия</label>
-                        <textarea class="form-control" id="EditActivity" readonly></textarea>
-                    </div>
-                </form>
+            <div class="form-group">
+                <label for="InputDate">Дата создания отчёта</label>
+                <input type="datetime-local" class="form-control    " id="InputDate" placeholder="Дата">
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" onclick='DeleteReport(document.getElementById("ReportId").value)'>Удалить</button>
+            <div class="form-group">
+                <label for="EmployeeSelect">Выберите рабочего</label>
+                <select class="form-control" id="EmployeeSelect">
+                    @foreach (var temp in ViewBag.Employees)
+                    {
+                        <option value="@temp.Id">@temp.FirstName @temp.Patronymic @temp.SecondName</option>
+                    }
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="TextareaActivity">Выполненые мероприятия</label>
+                <textarea class="form-control" id="TextareaActivity" name="textareavalid"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block pb-3" value="Submit">Создать отчёт</button>
+        </form>
+    </div>
+
+    <div class="modal" tabindex="-1" role="dialog" id="ReportModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="DateReport"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="ReportId">Id:</label>
+                            <input type="text" class="form-control" id="ReportId" readonly />
+                        </div>
+                        <div class="form-group">
+                            <label for="EditContractSelect">Выберите договор</label>
+                            <select class="form-control" id="EditContractSelect" readonly>
+                                @foreach (var temp in ViewBag.Contracts)
+                                {
+                                    <option value="@temp.Id">@temp.Name - @temp.Company.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="EditDate">Дата создания отчёта</label>
+                            <input type="datetime-local" class="form-control" id="EditDate" placeholder="Дата" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="EditEmployeeSelect">Выберите рабочего</label>
+                            <select class="form-control" id="EditEmployeeSelect" readonly>
+                                @foreach (var temp in ViewBag.Employees)
+                                {
+                                    <option value="@temp.Id">@temp.FirstName @temp.Patronymic @temp.SecondName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="EditActivity">Выполненые мероприятия</label>
+                            <textarea class="form-control" id="EditActivity" readonly></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-primary" onclick='DeleteReport(document.getElementById("ReportId").value)'>Удалить</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <script>
     $("#ReportValidate").validate({

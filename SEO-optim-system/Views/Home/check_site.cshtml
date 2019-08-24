@@ -2,134 +2,135 @@
     ViewData["Title"] = "Проверка сайта";
     ViewData["Description"] = "SEO-анализ сайта по URL";
 }
-
-<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-    <h1 class="h2">Проверка сайта</h1>
-</div>
-<p>На данной странице вы можете выполнить SEO-анализ сайта</p>
-<div class="input-group mb-3">
+<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h1 class="h2">Проверка сайта</h1>
+    </div>
+    <p>На данной странице вы можете выполнить SEO-анализ сайта</p>
+    <div class="input-group mb-3">
         <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" id="url">
         <div class="input-group-append">
             <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="getInfo()">Выполнить</button>
         </div>
-    <div class="col-md-12">
-        <div class="text-center">
-            <img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" class="p-3" />
-        </div>
-        <div class="result p-3"></div>
-        <div class="accordion" id="accordion">
-            <div class="card">
-                <div class="card-header" id="headingOne">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            Title
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        <b>Title</b> сообщает поисковой системе, каким оптимизатор хотел бы видеть заголовок страницы сайта в выдаче. Роботы придают большее значение содержанию обычного тега title.
-                        <br>
-                        <b>Оптимальная длина</b> - 70-80 символов.
+        <div class="col-md-12">
+            <div class="text-center">
+                <img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" class="p-3" />
+            </div>
+            <div class="result p-3"></div>
+            <div class="accordion" id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingOne">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Title
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <b>Title</b> сообщает поисковой системе, каким оптимизатор хотел бы видеть заголовок страницы сайта в выдаче. Роботы придают большее значение содержанию обычного тега title.
+                            <br>
+                            <b>Оптимальная длина</b> - 70-80 символов.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Description
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        <b>Description</b> предназначен для создания краткого описания html-страницы. Его содержимое может использоваться поисковыми системами для формирования сниппета.
-                        <br>
-                        <b>Оптимальная длина</b> - 120-160 символов.
+                <div class="card">
+                    <div class="card-header" id="headingTwo">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Description
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <b>Description</b> предназначен для создания краткого описания html-страницы. Его содержимое может использоваться поисковыми системами для формирования сниппета.
+                            <br>
+                            <b>Оптимальная длина</b> - 120-160 символов.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            ИКС
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                    <div class="card-body">
-                        <b>Индекс качества сайта</b> — это показатель того, насколько полезен ваш сайт для пользователей с точки зрения Яндекса.
-                        При расчете индекса качества учитываются размер аудитории сайта, степень удовлетворенности пользователей, уровень доверия к сайту со стороны пользователей и Яндекса, а также другие критерии.
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                ИКС
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                        <div class="card-body">
+                            <b>Индекс качества сайта</b> — это показатель того, насколько полезен ваш сайт для пользователей с точки зрения Яндекса.
+                            При расчете индекса качества учитываются размер аудитории сайта, степень удовлетворенности пользователей, уровень доверия к сайту со стороны пользователей и Яндекса, а также другие критерии.
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingFour">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                            ТРАСТ
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
-                    <div class="card-body">
-                        <b>Траст сайта</b> - это своеобразная мера доверия к сайту со стороны поисковых систем, которая значительно влияет на позиции сайта в результатах поиска.
-                        <br><br>
-                        <table class="table table-bordered text-center">
-                            <tr>
-                                <td style="font-weight:bold;font-size:120%">ТРАСТ</td>
-                                <td>0 - 30</td>
-                                <td>31 - 50</td>
-                                <td>51 - 100</td>
-                            </tr>
-                            <tr>
-                                <td>Оценка<br>донора</td>
-                                <td style="background-color:#F9A9A9;">Плохой<br>донор</td>
-                                <td style="background-color:#F9F9A9;">Хороший<br>донор</td>
-                                <td style="background-color:#A9F9A9;">Отличный<br>донор</td>
-                            </tr>
-                        </table>
+                <div class="card">
+                    <div class="card-header" id="headingFour">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                ТРАСТ
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                        <div class="card-body">
+                            <b>Траст сайта</b> - это своеобразная мера доверия к сайту со стороны поисковых систем, которая значительно влияет на позиции сайта в результатах поиска.
+                            <br><br>
+                            <table class="table table-bordered text-center">
+                                <tr>
+                                    <td style="font-weight:bold;font-size:120%">ТРАСТ</td>
+                                    <td>0 - 30</td>
+                                    <td>31 - 50</td>
+                                    <td>51 - 100</td>
+                                </tr>
+                                <tr>
+                                    <td>Оценка<br>донора</td>
+                                    <td style="background-color:#F9A9A9;">Плохой<br>донор</td>
+                                    <td style="background-color:#F9F9A9;">Хороший<br>донор</td>
+                                    <td style="background-color:#A9F9A9;">Отличный<br>донор</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingFive">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                            СПАМ
-                        </button>
-                    </h2>
-                </div>
-                <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
-                    <div class="card-body">
-                        <b>Ссылочный спам</b> - это чрезмерное количество внешних ссылок, размещаемых на сайтах-донорах с целью повышения эффективности продвижения и ускорения выхода продвигаемого ресурса в ТОП поисковой выдачи.
-                        <br>
-                        <b>101</b> - это означает невозможность расчета данных для запрошенного донора по причине отсутствия в сторонних сервисах необходимых данных.
-                        <br>
-                        <b>102</b> - это означает недостаточность данных. Недостаточная изученность сайта.
-                        <br><br>
-                        <table class="table table-bordered text-center">
-                            <tr>
-                                <td style="font-weight:bold;font-size:120%">СПАМ</td>
-                                <td>0 - 7</td>
-                                <td>7 - 12</td>
-                                <td>12 - 100</td>
-                            </tr>
-                            <tr>
-                                <td>Оценка<br>донора</td>
-                                <td style="background-color:#A9F9A9;">Отличный<br>донор</td>
-                                <td style="background-color:#F9F9A9;">Хороший<br>донор</td>
-                                <td style="background-color:#F9A9A9;">Плохой<br>донор</td>
-                            </tr>
-                        </table>
+                <div class="card">
+                    <div class="card-header" id="headingFive">
+                        <h2 class="mb-0">
+                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                                СПАМ
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordion">
+                        <div class="card-body">
+                            <b>Ссылочный спам</b> - это чрезмерное количество внешних ссылок, размещаемых на сайтах-донорах с целью повышения эффективности продвижения и ускорения выхода продвигаемого ресурса в ТОП поисковой выдачи.
+                            <br>
+                            <b>101</b> - это означает невозможность расчета данных для запрошенного донора по причине отсутствия в сторонних сервисах необходимых данных.
+                            <br>
+                            <b>102</b> - это означает недостаточность данных. Недостаточная изученность сайта.
+                            <br><br>
+                            <table class="table table-bordered text-center">
+                                <tr>
+                                    <td style="font-weight:bold;font-size:120%">СПАМ</td>
+                                    <td>0 - 7</td>
+                                    <td>7 - 12</td>
+                                    <td>12 - 100</td>
+                                </tr>
+                                <tr>
+                                    <td>Оценка<br>донора</td>
+                                    <td style="background-color:#A9F9A9;">Отличный<br>донор</td>
+                                    <td style="background-color:#F9F9A9;">Хороший<br>донор</td>
+                                    <td style="background-color:#F9A9A9;">Плохой<br>донор</td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</main>
 
 <script type='text/javascript'>
     function getInfo() {
