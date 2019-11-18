@@ -2,7 +2,7 @@
     ViewData["Title"] = "Данные";
     ViewData["Description"] = "Страница для ввода данных в базу данных и вывода";
 }
-<main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+<main role="main" class="col-md-11 ml-sm-auto col-lg-11 px-4">
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Данные</h1>
     </div>
@@ -102,8 +102,9 @@
                         </div>
                     </div>
                 </div>
-                <div id="data-table-contracts">
-                    <table class="table table-bordered text-center" style="font-size:12px;">
+
+                <table id="data-table-contracts" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                    <thead>
                         <tr style="background-color: rgba(156, 156, 156, 0.75); vertical-align:middle; text-align:center" class="align-middle">
                             <th rowspan="2">Название</th>
                             <th rowspan="2">Дата</th>
@@ -119,11 +120,13 @@
                             <td><b>Текст</b></td>
                             <td><b>Тэги</b></td>
                         </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in (List<Contract>)ViewBag.Contracts)
                         {
                             <tr>
                                 <td>@item.Name</td>
-                                <td>@item.Date</td>
+                                <td>@item.Date.Date.ToShortDateString()</td>
                                 <td><a href="https://@item.Url">@item.Url</a></td>
                                 <td>@item.Company.Name</td>
                                 <td>@item.Employee.FirstName @item.Employee.SecondName</td>
@@ -134,8 +137,9 @@
                                 <td>@(@item.OptimTag == true ? "Да" : "Нет")</td>
                             </tr>
                         }
-                    </table>
-                </div>
+                    </tbody>
+                </table>
+
             </div>
             <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
                 <form id="CompanyValidate">
@@ -182,15 +186,28 @@
                         </div>
                     </div>
                 </div>
-                <div id="data-table-companies">
-                    <table class="table table-bordered text-center">
-                        <tr style="background-color: rgba(156, 156, 156, 0.75)">
-                            <td>Название компании</td>
-                            <td>Страна</td>
-                            <td>Город</td>
-                            <td>ФИО</td>
-                            <td>Номер телефона</td>
+
+                <table id="data-table-companies" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">
+                                Название компании
+                            </th>
+                            <th class="th-sm">
+                                Страна
+                            </th>
+                            <th class="th-sm">
+                                Город
+                            </th>
+                            <th class="th-sm">
+                                ФИО
+                            </th>
+                            <th class="th-sm">
+                                Номер телефона
+                            </th>
                         </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in (List<Company>)ViewBag.Companies)
                         {
                             <tr>
@@ -201,8 +218,8 @@
                                 <td>@item.PhoneNumber</td>
                             </tr>
                         }
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
             <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
                 <form id="EmployeeValidate">
@@ -264,29 +281,44 @@
                         </div>
                     </div>
                 </div>
-                <div id="data-table-employees">
-                    <table class="table table-bordered text-center">
-                        <tr style="background-color: rgba(156, 156, 156, 0.75)">
-                            <td>ФИО</td>
-                            <td>Дата рождения</td>
-                            <td>Должность</td>
-                            <td>Отдел</td>
-                            <td>Номер телефона</td>
-                            <td>Стаж</td>
+
+                <table id="data-table-employees" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+                    <thead>
+                        <tr>
+                            <th class="th-sm">
+                                ФИО
+                            </th>
+                            <th class="th-sm">
+                                Дата рождения
+                            </th>
+                            <th class="th-sm">
+                                Должность
+                            </th>
+                            <th class="th-sm">
+                                Отдел
+                            </th>
+                            <th class="th-sm">
+                                Номер телефона
+                            </th>
+                            <th class="th-sm">
+                                Стаж
+                            </th>
                         </tr>
+                    </thead>
+                    <tbody>
                         @foreach (var item in (List<Employee>)ViewBag.Employees)
                         {
                             <tr>
                                 <td>@item.FirstName @item.Patronymic @item.SecondName</td>
-                                <td>@item.Birthday</td>
+                                <td>@item.Birthday.Date.ToShortDateString()</td>
                                 <td>@item.Position</td>
                                 <td>@item.Department</td>
                                 <td>@item.PhoneNumber</td>
                                 <td>@item.Experience</td>
                             </tr>
                         }
-                    </table>
-                </div>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -305,6 +337,10 @@
                         <div class="form-group">
                             <label for="EmployeeId" class="form-control-label">Id:</label>
                             <input type="text" class="form-control" id="EmployeeId" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="EmployeeEmail" class="form-control-label">Email:</label>
+                            <input type="text" class="form-control" id="EmployeeEmail" readonly>
                         </div>
                         <div class="form-group">
                             <label for="EditEmployeeFirstName" class="form-control-label">Имя:</label>
@@ -439,7 +475,7 @@
                             <select class="form-control" id="EditEmployeeSelect">
                                 @foreach (var temp in ViewBag.Employees)
                                 {
-                                    <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                                    <option value="@temp.Id">@temp.FirstName @temp.SecondName - @temp.Position</option>
                                 }
                             </select>
                         </div>
@@ -480,6 +516,21 @@
 </main>
 
 <script>
+    $(document).ready(function () {
+        $('#data-table-employees').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+
+    $(document).ready(function () {
+        $('#data-table-companies').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+
+    $(document).ready(function () {
+        $('#data-table-contracts').DataTable();
+        $('.dataTables_length').addClass('bs-select');
+    });
+
     $(document).ready(function () {
         $('.phoneNumber').mask("+0 (000) 000-0000");
     });
@@ -816,6 +867,7 @@
                 $("#EditEmployeeDepartment").val(data.department);
                 $("#EditEmployeePhone").val(data.phoneNumber);
                 $("#EditEmployeeExperience").val(data.experience);
+                $("#EmployeeEmail").val(data.email);
             },
             error: function (request) {
                 toastr["error"](request.message)
