@@ -12,6 +12,7 @@ namespace SEO_optim_system.Models
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Contract> Contracts { get; set; }
         public DbSet<Report> Reports { get; set; }
+        public DbSet<Analysis> Analyses { get; set; }
         public seoContext(DbContextOptions<seoContext> options)
             : base(options)
         {

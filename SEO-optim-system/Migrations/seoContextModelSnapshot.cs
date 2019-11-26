@@ -15,9 +15,33 @@ namespace SEO_optim_system.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("SEO_optim_system.Models.Analysis", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<double>("Rate");
+
+                    b.Property<double>("SQI");
+
+                    b.Property<double>("Spam");
+
+                    b.Property<double>("Trust");
+
+                    b.Property<string>("URL")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Analyses");
+                });
 
             modelBuilder.Entity("SEO_optim_system.Models.Company", b =>
                 {
