@@ -185,8 +185,9 @@
                     $(".result").append('<br>');
                     $(".result").append('<b>СПАМ: </b>' + CheckSpam(data.spam));
                     $(".result").append('<br>');
+                    $(".result").append('<b>Рейтинг: </b>' + data.rating +"/ 10");
                     console.log("Осталось проверок - " + data.hostLimitsBalance);
-                    toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта")
+                    toastr["success"]("Анализ сайта " + $("#url").val() + " завершён", "Анализ сайта");
                     toastr.options = {
                         "closeButton": false,
                         "debug": false,

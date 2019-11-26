@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using SEO_optim_system.ViewModel;
 
 namespace SEO_optim_system.Controllers
 {
@@ -308,6 +309,17 @@ namespace SEO_optim_system.Controllers
             var trstspm = await GetSpamAndTrast(url);
             if (trstspm[0] == "True")
             {
+	            double SQI = Convert.ToDouble(await YandexSQI(url));
+	            double trast = Convert.ToDouble(trstspm[1]);
+
+	            double spam = double.Parse(trstspm[2].Replace('.',','));
+
+	            string hostLimitsBalance = trstspm[3];
+
+	            double rating = Math.Round((0.00001 * Convert.ToDouble(SQI) + 0.1 * Convert.ToDouble(trast) + 0.1 * Convert.ToDouble(spam)) / 3.0, 2);
+	            
+	            AddAnalytic(url, spam, SQI, trast, rating);
+
                 return Json(new
                 {
                     status = trstspm[0],
@@ -317,7 +329,8 @@ namespace SEO_optim_system.Controllers
                     SQI = await YandexSQI(url),
                     trast = trstspm[1],
                     spam = trstspm[2],
-                    hostLimitsBalance = trstspm[3]
+                    hostLimitsBalance = trstspm[3],
+					rating = rating
                 });
             }
             else
@@ -328,6 +341,36 @@ namespace SEO_optim_system.Controllers
                     message = "Неправильный URL"
                 });
             }
+        }
+
+        public IActionResult Check_History()
+        {
+	        var allAnalyses = DbContext.Analyses.ToList();
+
+	        var urlsList = DbContext.Analyses.Select(t => t.URL).Distinct();
+
+	        var result = urlsList.Select(a => new AnalyeseViewModel
+	        {
+				Url = a,
+		        AnalysisList = allAnalyses.Where(t=>t.URL == a).ToList(),
+	        }).ToList();
+
+	        return View(result);
+        }
+
+        private void AddAnalytic( string url, double spam, double sqi, double trust,double rate)
+        {
+	        Analysis temp = new Analysis()
+	        {
+		        URL = url,
+		        Date = DateTime.UtcNow,
+		        Spam = spam,
+		        SQI = sqi,
+		        Trust = trust,
+		        Rate = rate,
+	        };
+	        DbContext.Analyses.Add(temp);
+	        DbContext.SaveChanges();
         }
 
         public async Task<string> YandexSQI(string url)
