@@ -22,61 +22,68 @@
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="Contract" role="tabpanel" aria-labelledby="Contract-tab">
                 <form id="ContractValidate">
-                    <div class="form-group pt-3">
-                        <label for="InputProjectName">Название проекта</label>
-                        <input type="text" class="form-control" id="InputProjectName" placeholder="Название проекта" name="NameProject">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-6">
+                            <label for="InputProjectName">Название проекта</label>
+                            <input type="text" class="form-control" id="InputProjectName" placeholder="Название проекта" name="NameProject">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="InputProjectDate">Дата заключения договора</label>
+                            <input type="date" class="form-control" id="InputProjectDate" placeholder="Дата">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="InputProjectDate">Дата заключения договора</label>
-                        <input type="date" class="form-control" id="InputProjectDate" placeholder="Дата">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-6">
+                            <label for="InputProjectSite">Сайт для продвижения</label>
+                            <input type="text" class="form-control" id="InputProjectSite" placeholder="Сайт" name="SiteProject">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="CompanySelect">Выберите компанию</label>
+                            <select class="form-control" id="CompanySelect">
+                                @foreach (var temp in ViewBag.Companies)
+                                {
+                                    <option value="@temp.Id">@temp.Name</option>
+                                }
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="InputProjectSite">Сайт для продвижения</label>
-                        <input type="text" class="form-control" id="InputProjectSite" placeholder="Сайт" name="SiteProject">
-                    </div>
-                    <div class="form-group">
-                        <label for="CompanySelect">Выберите компанию</label>
-                        <select class="form-control" id="CompanySelect">
-                            @foreach (var temp in ViewBag.Companies)
-                            {
-                                <option value="@temp.Id">@temp.Name</option>
-                            }
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="EmployeeSelect">Выберите рабочего</label>
-                        <select class="form-control" id="EmployeeSelect">
-                            @foreach (var temp in ViewBag.Employees)
-                            {
-                                <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
-                            }
-                        </select>
+                    <div class="row mt-2">
+                        <div class="form-group col-md-4">
+                            <label for="EmployeeSelect">Выберите рабочего</label>
+                            <select class="form-control" id="EmployeeSelect">
+                                @foreach (var temp in ViewBag.Employees)
+                                {
+                                    <option value="@temp.Id">@temp.FirstName @temp.SecondName</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputGooglePoz">Позиция в Google</label>
+                            <input type="text" class="form-control" id="InputGooglePoz" placeholder="Позиция в Google" name="GooglePozValid">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputYandexPoz">Позиция в Yandex</label>
+                            <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex" name="YandexPozValid">
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="TextareaKeywords">Ключевые слова</label>
                         <textarea class="form-control" id="TextareaKeywords" placeholder="Слова вводить через запятую" name="ProjectKeywords"></textarea>
                     </div>
-                    <div class="form-group">
-                        <label for="InputGooglePoz">Позиция в Google</label>
-                        <input type="text" class="form-control" id="InputGooglePoz" placeholder="Позиция в Google" name="GooglePozValid">
+                    <div class="row m-2">
+                        <div class="custom-control custom-checkbox col-md-4">
+                            <input class="custom-control-input" type="checkbox" id="OptimizImg">
+                            <label class="custom-control-label" for="OptimizImg">Оптимизация изображений</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-md-4">
+                            <input class="custom-control-input" type="checkbox" id="OptimizText">
+                            <label class="custom-control-label" for="OptimizText">Оптимизация текста</label>
+                        </div>
+                        <div class="custom-control custom-checkbox col-md-4">
+                            <input class="custom-control-input" type="checkbox" id="OptimizTag">
+                            <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="InputYandexPoz">Позиция в Yandex</label>
-                        <input type="text" class="form-control" id="InputYeandexPoz" placeholder="Позиция в Yandex" name="YandexPozValid">
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="OptimizImg">
-                        <label class="custom-control-label" for="OptimizImg">Оптимизация изображений</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="OptimizText">
-                        <label class="custom-control-label" for="OptimizText">Оптимизация текста</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input class="custom-control-input" type="checkbox" id="OptimizTag">
-                        <label class="custom-control-label" for="OptimizTag">Оптимизация тэгов</label>
-                    </div>
-                    <br>
                     <button type="submit" class="btn btn-primary btn-lg btn-block" id="AddContract" value="submit">Добавить договор</button>
                 </form>
                 <br>
@@ -143,25 +150,29 @@
             </div>
             <div class="tab-pane fade" id="ListOfCompany" role="tabpanel" aria-labelledby="ListOfCompany-tab">
                 <form id="CompanyValidate">
-                    <div class="form-group pt-3">
-                        <label for="InputCompanyName">Название компании</label>
-                        <input type="text" class="form-control" id="InputCompanyName" placeholder="Название компании" name="CompanyName">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-4">
+                            <label for="InputCompanyName">Название компании</label>
+                            <input type="text" class="form-control" id="InputCompanyName" placeholder="Название компании" name="CompanyName">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputCompanyCountry">Страна</label>
+                            <input type="text" class="form-control" id="InputCompanyCountry" placeholder="Страна" name="CompanyCountry">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputCompanyCity">Город</label>
+                            <input type="text" class="form-control" id="InputCompanyCity" placeholder="Город" name="CompanyCity">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="InputCompanyCountry">Страна</label>
-                        <input type="text" class="form-control" id="InputCompanyCountry" placeholder="Страна" name="CompanyCountry">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputCompanyCity">Город</label>
-                        <input type="text" class="form-control" id="InputCompanyCity" placeholder="Город" name="CompanyCity">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputCompanyDirector">ФИО директора или ответственного лица</label>
-                        <input type="text" class="form-control" id="InputCompanyDirector" placeholder="ФИО директора или ответственного лица" name="CompanyDirector">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputCompanyPhone">Номер телефона</label>
-                        <input type="text" class="form-control phoneNumber" id="InputCompanyPhone" name="CompanyPhone" placeholder="Номер телефона">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-6">
+                            <label for="InputCompanyDirector">ФИО директора или ответственного лица</label>
+                            <input type="text" class="form-control" id="InputCompanyDirector" placeholder="ФИО директора или ответственного лица" name="CompanyDirector">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="InputCompanyPhone">Номер телефона</label>
+                            <input type="text" class="form-control phoneNumber" id="InputCompanyPhone" name="CompanyPhone" placeholder="Номер телефона">
+                        </div>
                     </div>
                     <button class="btn btn-primary btn-lg btn-block" id="AddCompany" type="submit" value="submit">Добавить компанию</button>
                 </form>
@@ -186,7 +197,6 @@
                         </div>
                     </div>
                 </div>
-
                 <table id="data-table-companies" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
                     <thead>
                         <tr>
@@ -223,42 +233,48 @@
             </div>
             <div class="tab-pane fade" id="ListOfEmployee" role="tabpanel" aria-labelledby="ListOfEmployee-tab">
                 <form id="EmployeeValidate">
-                    <div class="form-group pt-3">
-                        <label for="InputEmployeeFirstName">Имя рабочего</label>
-                        <input type="text" class="form-control" id="InputEmployeeFirstName" placeholder="Имя" name="EmployeeName">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-4">
+                            <label for="InputEmployeeFirstName">Имя рабочего</label>
+                            <input type="text" class="form-control" id="InputEmployeeFirstName" placeholder="Имя" name="EmployeeName">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputEmployeePatronymic">Отчество рабочего</label>
+                            <input type="text" class="form-control" id="InputEmployeePatronymic" placeholder="Отчество" name="EmployeePatronymic">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputEmployeeSecondName">Фамилия рабочего</label>
+                            <input type="text" class="form-control" id="InputEmployeeSecondName" placeholder="Фамилия" name="EmployeeSecondName">
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="InputEmployeePatronymic">Отчество рабочего</label>
-                        <input type="text" class="form-control" id="InputEmployeePatronymic" placeholder="Отчество" name="EmployeePatronymic">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-6">
+                            <label for="InputEmployeePosition">Должность</label>
+                            <input type="text" class="form-control" id="InputEmployeePosition" placeholder="Должность" name="EmployeePosition">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="InputEmployeeDepartament">Отдел</label>
+                            <select class="custom-select" id="InputEmployeeDepartment">
+                                <option value="0">Администрация</option>
+                                <option value="1">Бухгалтерия</option>
+                                <option value="2">Разработка</option>
+                                <option value="3">Отдел маркетинга</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="InputEmployeeSecondName">Фамилия рабочего</label>
-                        <input type="text" class="form-control" id="InputEmployeeSecondName" placeholder="Фамилия" name="EmployeeSecondName">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputEmployeeBirthday">Дата рождения</label>
-                        <input type="date" class="form-control" id="InputEmployeeBirthday" placeholder="Дата рождения">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputEmployeePosition">Должность</label>
-                        <input type="text" class="form-control" id="InputEmployeePosition" placeholder="Должность" name="EmployeePosition">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputEmployeeDepartament">Отдел</label>
-                        <select class="custom-select" id="InputEmployeeDepartment">
-                            <option value="0">Администрация</option>
-                            <option value="1">Бухгалтерия</option>
-                            <option value="2">Разработка</option>
-                            <option value="3">Отдел маркетинга</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="InputEmployeePhone">Номер телефона</label>
-                        <input type="text" class="form-control phoneNumber" id="InputEmployeePhone" name="EmployeePhone" placeholder="Номер телефона">
-                    </div>
-                    <div class="form-group">
-                        <label for="InputEmployeeExperience">Стаж</label>
-                        <input type="text" class="form-control" id="InputEmployeeExperience" placeholder="Лет" name="EmployeeExperience">
+                    <div class="row mt-2">
+                        <div class="form-group col-md-4">
+                            <label for="InputEmployeeBirthday">Дата рождения</label>
+                            <input type="date" class="form-control" id="InputEmployeeBirthday" placeholder="Дата рождения">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputEmployeePhone">Номер телефона</label>
+                            <input type="text" class="form-control phoneNumber" id="InputEmployeePhone" name="EmployeePhone" placeholder="Номер телефона">
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="InputEmployeeExperience">Стаж, лет</label>
+                            <input type="text" class="form-control" id="InputEmployeeExperience" placeholder="Лет" name="EmployeeExperience">
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-lg btn-block" value="submit" id="AddEmployee">Добавить рабочего</button>
                 </form>
@@ -334,50 +350,60 @@
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
-                            <label for="EmployeeId" class="form-control-label">Id:</label>
-                            <input type="text" class="form-control" id="EmployeeId" readonly>
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EmployeeId" class="form-control-label">Id:</label>
+                                <input type="text" class="form-control" id="EmployeeId" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EmployeeEmail" class="form-control-label">Email:</label>
+                                <input type="text" class="form-control" id="EmployeeEmail" readonly>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EmployeeEmail" class="form-control-label">Email:</label>
-                            <input type="text" class="form-control" id="EmployeeEmail" readonly>
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeeFirstName" class="form-control-label">Имя:</label>
+                                <input type="text" class="form-control" id="EditEmployeeFirstName">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeePatronymic" class="form-control-label">Отчество:</label>
+                                <input type="text" class="form-control" id="EditEmployeePatronymic">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditEmployeeFirstName" class="form-control-label">Имя:</label>
-                            <input type="text" class="form-control" id="EditEmployeeFirstName">
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeeSecondName" class="form-control-label">Фамилия:</label>
+                                <input type="text" class="form-control" id="EditEmployeeSecondName">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeeBirthday" class="form-control-label">Дата рождения:</label>
+                                <input type="datetime" class="form-control" id="EditEmployeeBirthday" readonly>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditEmployeePatronymic" class="form-control-label">Отчество:</label>
-                            <input type="text" class="form-control" id="EditEmployeePatronymic">
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeePosition" class="form-control-label">Должность:</label>
+                                <input type="text" class="form-control" id="EditEmployeePosition">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeeDepartament">Отдел</label>
+                                <select class="custom-select" id="EditEmployeeDepartment">
+                                    <option value="0">Администрация</option>
+                                    <option value="1">Бухгалтерия</option>
+                                    <option value="2">Разработка</option>
+                                    <option value="3">Отдел маркетинга</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditEmployeeSecondName" class="form-control-label">Фамилия:</label>
-                            <input type="text" class="form-control" id="EditEmployeeSecondName">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditEmployeeBirthday" class="form-control-label">Дата рождения:</label>
-                            <input type="datetime" class="form-control" id="EditEmployeeBirthday" readonly>
-                        </div>
-                        <div class="form-group">
-                            <label for="EditEmployeePosition" class="form-control-label">Должность:</label>
-                            <input type="text" class="form-control" id="EditEmployeePosition">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditEmployeeDepartament">Отдел</label>
-                            <select class="custom-select" id="EditEmployeeDepartment">
-                                <option value="0">Администрация</option>
-                                <option value="1">Бухгалтерия</option>
-                                <option value="2">Разработка</option>
-                                <option value="3">Отдел маркетинга</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="EditEmployeePhone" class="form-control-label">Номер телефона:</label>
-                            <input type="text" class="form-control phoneNumber" id="EditEmployeePhone">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditEmployeeExperience" class="form-control-label">Стаж:</label>
-                            <input type="text" class="form-control" id="EditEmployeeExperience">
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeePhone" class="form-control-label">Номер телефона:</label>
+                                <input type="text" class="form-control phoneNumber" id="EditEmployeePhone">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeeExperience" class="form-control-label">Стаж:</label>
+                                <input type="text" class="form-control" id="EditEmployeeExperience">
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -393,28 +419,32 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="Name"></h5>
+                    <h5 class="modal-title" id="Name" style="overflow: hidden; white-space: nowrap;"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
-                            <label for="CompanyId" class="form-control-label">Id:</label>
-                            <input type="text" class="form-control" id="CompanyId" readonly>
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="CompanyId" class="form-control-label">Id:</label>
+                                <input type="text" class="form-control" id="CompanyId" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditCompanyName" class="form-control-label">Название компании:</label>
+                                <input type="text" class="form-control" id="EditCompanyName">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditCompanyName" class="form-control-label">Название компании:</label>
-                            <input type="text" class="form-control" id="EditCompanyName">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditCompanyCountry" class="form-control-label">Страна:</label>
-                            <input type="text" class="form-control" id="EditCompanyCountry">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditCompanyCity" class="form-control-label">Город:</label>
-                            <input type="text" class="form-control" id="EditCompanyCity">
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditCompanyCountry" class="form-control-label">Страна:</label>
+                                <input type="text" class="form-control" id="EditCompanyCountry">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditCompanyCity" class="form-control-label">Город:</label>
+                                <input type="text" class="form-control" id="EditCompanyCity">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="EditCompanyLPR" class="form-control-label">Лицо принимающее решение:</label>
@@ -438,59 +468,68 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="NameContractModal"></h5>
+                    <h5 class="modal-title" id="NameContractModal" style="overflow: hidden; white-space: nowrap;"></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <form>
-                        <div class="form-group">
-                            <label for="ContractId" class="form-control-label">Id:</label>
-                            <input type="text" class="form-control" id="ContractId" readonly>
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="ContractId" class="form-control-label">Id:</label>
+                                <input type="text" class="form-control" id="ContractId" readonly>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditCompanyDate" class="form-control-label">Дата:</label>
+                                <input type="text" class="form-control" id="EditCompanyDate" readonly>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditContractName" class="form-control-label">Название проекта:</label>
-                            <input type="text" class="form-control" id="EditContractName">
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditContractName" class="form-control-label">Название проекта:</label>
+                                <input type="text" class="form-control" id="EditContractName">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditCompanySite" class="form-control-label">Сайт:</label>
+                                <input type="text" class="form-control" id="EditCompanySite">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditCompanyDate" class="form-control-label">Дата:</label>
-                            <input type="text" class="form-control" id="EditCompanyDate" readonly>
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditCompanySelect">Выберите компанию</label>
+                                <select class="form-control" id="EditCompanySelect">
+                                    @foreach (var temp in ViewBag.Companies)
+                                    {
+                                        <option value="@temp.Id">@temp.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditEmployeeSelect">Выберите рабочего</label>
+                                <select class="form-control" id="EditEmployeeSelect">
+                                    @foreach (var temp in ViewBag.Employees)
+                                    {
+                                        <option value="@temp.Id">@temp.FirstName @temp.SecondName - @temp.Position</option>
+                                    }
+                                </select>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="EditCompanySite" class="form-control-label">Сайт:</label>
-                            <input type="text" class="form-control" id="EditCompanySite">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditCompanySelect">Выберите компанию</label>
-                            <select class="form-control" id="EditCompanySelect">
-                                @foreach (var temp in ViewBag.Companies)
-                                {
-                                    <option value="@temp.Id">@temp.Name</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="EditEmployeeSelect">Выберите рабочего</label>
-                            <select class="form-control" id="EditEmployeeSelect">
-                                @foreach (var temp in ViewBag.Employees)
-                                {
-                                    <option value="@temp.Id">@temp.FirstName @temp.SecondName - @temp.Position</option>
-                                }
-                            </select>
+                        <div class="row mt-2">
+                            <div class="form-group col-md-6">
+                                <label for="EditContractGooglePoz" class="form-control-label">Позиция в Google:</label>
+                                <input type="text" class="form-control" id="EditContractGooglePoz">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="EditContractYandexPoz" class="form-control-label">Позиция в Yandex:</label>
+                                <input type="text" class="form-control" id="EditContractYandexPoz">
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="EditContractKeywords" class="form-control-label">Ключевые слова:</label>
                             <textarea type="text" class="form-control" id="EditContractKeywords" rows="3"></textarea>
                         </div>
-                        <div class="form-group">
-                            <label for="EditContractGooglePoz" class="form-control-label">Позиция в Google:</label>
-                            <input type="text" class="form-control" id="EditContractGooglePoz">
-                        </div>
-                        <div class="form-group">
-                            <label for="EditContractYandexPoz" class="form-control-label">Позиция в Yandex:</label>
-                            <input type="text" class="form-control" id="EditContractYandexPoz">
-                        </div>
+                        
                         <div class="custom-control custom-checkbox">
                             <input class="custom-control-input" type="checkbox" id="EditContractOptimizImg">
                             <label class="custom-control-label" for="EditContractOptimizImg">Оптимизация изображений</label>
@@ -584,10 +623,10 @@
             },
             errorPlacement: function ( error, element ) {
 	            error.addClass("text-danger");
-		        error.insertAfter(element.parent());
+		        error.appendTo(element.parent());
 		    }
         });
-        // Employee Validate
+    // Employee Validate
     $("#EmployeeValidate").validate({
         rules: {
             EmployeeName: {
@@ -648,7 +687,7 @@
         },
         errorPlacement: function ( error, element ) {
 	        error.addClass("text-danger");
-		    error.insertAfter(element.parent());
+		    error.appendTo(element.parent());
         }
     });
     // Contract Validate
@@ -714,7 +753,7 @@
         },
         errorPlacement: function ( error, element ) {
 	        error.addClass("text-danger");
-		    error.insertAfter(element.parent());
+		    error.appendTo(element.parent());
         }
         });
 

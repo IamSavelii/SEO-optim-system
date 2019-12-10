@@ -8,10 +8,13 @@
     </div>
     <p>На данной странице вы можете выполнить SEO-анализ сайта</p>
     <div class="input-group mb-3">
-        <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" id="url">
-        <div class="input-group-append">
-            <button class="btn btn-outline-secondary" type="submit" id="button-addon2" onclick="getInfo()">Выполнить</button>
+        <div class="md-form input-group mb-3">
+            <input type="text" class="form-control" placeholder="Введите адрес сайта" aria-label="Введите адрес сайта" aria-describedby="button-addon2" id="url">
+            <div class="input-group-append">
+                <button class="btn btn-md btn-secondary m-0 px-3" type="submit" id="button-addon2" onclick="getInfo()">Выполнить</button>
+            </div>
         </div>
+        
         <div class="col-md-12">
             <div class="text-center">
                 <img id="loadImg" src="~/files/91.gif" style="display:none; align-items: center;" class="p-3" />

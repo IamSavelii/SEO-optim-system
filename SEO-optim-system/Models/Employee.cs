@@ -33,9 +33,13 @@ namespace SEO_optim_system.Models
 
         public enum AllDepartament
         {
+            [Display(Name = "Администрация")]
             Admin,
+            [Display(Name = "Бухгалтерия")]
             Bookkeeping,
+            [Display(Name = "Разработка")]
             Development,
+            [Display(Name = "Маркетинг")]
             Marketing
         }
     }

@@ -316,7 +316,7 @@ namespace SEO_optim_system.Controllers
 
 	            string hostLimitsBalance = trstspm[3];
 
-	            double rating = Math.Round((0.00001 * Convert.ToDouble(SQI) + 0.1 * Convert.ToDouble(trast) + 0.1 * Convert.ToDouble(spam)) / 3.0, 2);
+	            double rating = Math.Round((0.00001 * SQI + 0.1 * trast + 0.1 * spam) / 3.0, 2);
 	            
 	            AddAnalytic(url, spam, SQI, trast, rating);
 
@@ -383,7 +383,15 @@ namespace SEO_optim_system.Controllers
             var configuration = Configuration.Default.WithDefaultLoader(requesters: new[] { requester });
             var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader().WithCss().WithCookies());
             var document = await context.OpenAsync(adress);
-            var result = document.QuerySelector("span.success").TextContent;
+            var result = "";
+            try
+            {
+                result = document.QuerySelector("span.success").TextContent;
+            }
+            catch
+            {
+                result = "";
+            }
             return await Delete(result);
         }
 
@@ -436,7 +444,7 @@ namespace SEO_optim_system.Controllers
             var document = await context.OpenAsync(adress);
             var json = document.QuerySelector("html").TextContent;
             var result = JsonConvert.DeserializeObject<Rootobject>(json);
-            if (result.success == true)
+            if (result.success)
             {
                 string res = Convert.ToString(result.success);
                 trtspm.Add(res); // [0]
