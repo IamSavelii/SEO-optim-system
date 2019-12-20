@@ -11,6 +11,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using SEO_optim_system.ViewModel;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace SEO_optim_system.Controllers
 {
@@ -24,7 +25,21 @@ namespace SEO_optim_system.Controllers
         {
             DbContext = context;
         }
-        
+
+        protected Employee GetCurrentUser() => DbContext.Employees.FirstOrDefault(u => u.Email == User.Identity.Name);
+
+        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            var user = GetCurrentUser();
+            if (user != null)
+            {
+                ViewBag.CurrentUserName = User.Identity.Name;
+                ViewBag.CurrentUserId = user.Id;
+                ViewBag.CurrentUserFullName = user.FirstName + " " + user.SecondName;
+            }
+            await next();
+        }
+
         public IActionResult Index()
         {
             return View();
