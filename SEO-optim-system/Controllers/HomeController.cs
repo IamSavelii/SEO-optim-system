@@ -55,6 +55,11 @@ namespace SEO_optim_system.Controllers
         {
             return View();
         }
+        
+        public IActionResult Wordstat()
+        {
+            return View();
+        }
 
         public IActionResult Data()
         {
@@ -390,7 +395,7 @@ namespace SEO_optim_system.Controllers
 
         public async Task<string> YandexSQI(string url)
         {
-            var adress = "https://seobudget.ru/freechecker/site/" + url;
+            var adress = "http://seobudget.ru/freechecker/site/" + url + "/";
             var requester = new HttpRequester(adress);
             requester.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8";
             requester.Headers["Accept-Charset"] = "utf-8";
@@ -399,9 +404,10 @@ namespace SEO_optim_system.Controllers
             var context = BrowsingContext.New(Configuration.Default.WithDefaultLoader().WithCss().WithCookies());
             var document = await context.OpenAsync(adress);
             var result = "";
+            System.Threading.Thread.Sleep(15000);
             try
             {
-                result = document.QuerySelector("span.success").TextContent;
+                result = document.QuerySelector("#innercont > ul > li > span").TextContent;
             }
             catch
             {

@@ -171,6 +171,7 @@
             dataType: 'json',
             success: function (data) {
                 if (data.status == "True") {
+                    console.log(data);
                     $(".result").empty();
                     $(".result").append('<b>Проверен сайт:</b> <a href="https://' + data.site + '" > ' + data.site + '</a>');
                     $(".result").append('<br>');

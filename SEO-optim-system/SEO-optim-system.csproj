@@ -16,4 +16,7 @@
     <PackageReference Include="toastr" Version="2.1.1" />
   </ItemGroup>
 
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
+
 </Project>
